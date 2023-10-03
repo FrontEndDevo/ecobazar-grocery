@@ -2,6 +2,7 @@ import header from "../assets/images/header/header.webp";
 import temp_header from "../assets/images/header/temp_header_image_2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
+import SuggestedMeal from "./SuggestedMeal";
 
 const Header = () => {
   return (
@@ -9,7 +10,9 @@ const Header = () => {
       <div className="container flex flex-col items-center justify-between gap-32 lg:flex-row-reverse">
         <div className="relative basis-1/3">
           <img src={header} alt="header chef" className="w-full" />
-
+          <div className="absolute -bottom-24 left-2 lg:-left-36 lg:bottom-44">
+            <SuggestedMeal />
+          </div>
           <div className="absolute top-0 flex gap-4 px-4 py-2 bg-white rounded-lg cursor-progress animate-pulse right-2 md:top-24 md:-right-8 lg:-right-8 xl:-right-4 lg:top-16 xl:top-24">
             <FontAwesomeIcon
               icon={faClockRotateLeft}
