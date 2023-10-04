@@ -1,4 +1,5 @@
 import chooseUs from "../assets/images/home_page/choose_us.webp";
+import SuggestedProduct from "./SuggestedProduct";
 const WhyChooseUs = () => {
   return (
     <section className="py-20 lg:py-4 bg-slate-50">
@@ -9,6 +10,9 @@ const WhyChooseUs = () => {
             alt="Why should you choose us?"
             className="w-full"
           />
+          <div className="absolute -bottom-12 left-2 lg:left-[80%] xl:bottom-[30%] lg:bottom-[10%]">
+            <SuggestedProduct />
+          </div>
         </div>
         <div className="mx-4 text-center xl:px-20 basis-1/2 lg:text-start">
           <h5 className="text-base uppercase text-primary-500 lg:text-xl">
