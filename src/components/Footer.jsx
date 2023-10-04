@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import groverImg from "../assets/images/ezobazar_grocery.webp";
+import ezobazarImg from "../assets/images/ezobazar_grocery.webp";
 const footerCompanyLinks = [
   "Contact",
   "About",
@@ -40,8 +40,8 @@ const Footer = () => {
               href="/"
               className="flex items-center justify-center gap-2 my-4 lg:justify-start"
             >
-              <img src={groverImg} alt="Grover logo" />
-              <h1 className="text-4xl font-bold ">Grover</h1>
+              <img src={ezobazarImg} alt="Ecobazar logo" />
+              <h1 className="text-4xl font-bold ">Ecobazar</h1>
             </Link>
             <p className="px-2 text-base">
               Fast delivery, which is active all over the world, serves with
