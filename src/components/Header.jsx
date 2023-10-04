@@ -1,5 +1,5 @@
-import header from "../assets/images/header/header.webp";
-import temp_header from "../assets/images/header/temp_header_image_2.png";
+import header from "../assets/images/home_page/header/header.webp";
+import temp_header from "../assets/images/home_page/header/temp_header_image_2.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SuggestedMeal from "./SuggestedMeal";

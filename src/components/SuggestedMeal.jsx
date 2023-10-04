@@ -1,4 +1,4 @@
-import tempMeal from "../assets/images/header/temp_meal.png";
+import tempMeal from "../assets/images/home_page/header/temp_meal.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 const SuggestedMeal = () => {
