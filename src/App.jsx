@@ -9,7 +9,8 @@ import Footer from "./components/Footer";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import { useEffect } from "react";
-
+import { useDispatch } from "react-redux";
+import { restaurantsActions } from "./redux/slices/restaurantsSlice.js";
 const homeRouter = (
   <>
     <Navbar />
@@ -22,17 +23,21 @@ const homeRouter = (
 );
 
 const App = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // Store the Restaurants.
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, "restaurants"));
-      const arr = [];
 
       querySnapshot.forEach((doc) => {
-        arr.push(doc.data());
+        dispatch(
+          restaurantsActions.addRestaurant({
+            restaurant: doc.data().restaurant,
+            foodItems: doc.data().foodItems,
+          })
+        );
       });
-
-      console.log(arr);
     };
 
     fetchData();
