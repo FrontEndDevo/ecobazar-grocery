@@ -56,8 +56,11 @@ const deliveringFeatures = [
 const About = () => {
   const aboutSercices = (
     <ul className="grid grid-cols-2 text-center lg:text-start lg:grid-cols-3 2xl:grid-cols-2 gap-y-12 gap-x-2 lg:gap-4">
-      {ourServices.map((srv) => (
-        <li className="flex flex-col items-center gap-4 lg:flex-row">
+      {ourServices.map((srv, index) => (
+        <li
+          key={index}
+          className="flex flex-col items-center gap-4 lg:flex-row"
+        >
           <FontAwesomeIcon
             icon={srv.icon}
             className="w-8 p-4 text-3xl rounded-full bg-green-50 text-primary-100"
@@ -75,8 +78,8 @@ const About = () => {
 
   const ourDeliverFeatures = (
     <ul className="mb-6">
-      {deliveringFeatures.map((feature) => (
-        <li className="flex items-center gap-2 my-2">
+      {deliveringFeatures.map((feature, index) => (
+        <li key={index} className="flex items-center gap-2 my-2">
           <FontAwesomeIcon
             icon={faCheck}
             className="w-6 p-2 text-3xl rounded-full bg-green-50 text-primary-700"
