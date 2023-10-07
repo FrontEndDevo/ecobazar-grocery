@@ -1,28 +1,12 @@
 /* eslint-disable no-undef */
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import Benefits from "./components/Benefits";
-import WhyChooseUs from "./components/WhyChooseUs";
-import Delivery from "./components/Delivery";
-import Footer from "./components/Footer";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./config/firebase";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { restaurantsActions } from "./redux/slices/restaurantsSlice.js";
 import { fruitsActions } from "./redux/slices/fruitsSlice";
-const homeRouter = (
-  <>
-    <Navbar />
-    <Header />
-    <Benefits />
-    <WhyChooseUs />
-    <Delivery />
-    <Footer />
-  </>
-);
-
+import Homepage from "./pages/Homepage";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -58,7 +42,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={homeRouter} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </>
   );
