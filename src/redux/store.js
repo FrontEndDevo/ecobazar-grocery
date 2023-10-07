@@ -5,6 +5,7 @@ import fruitsSlice from "./slices/fruitsSlice";
 const store = configureStore({
   reducer: {
     restaurants: restaurantsSlice,
+    fruits: fruitsSlice,
   },
 });
 
