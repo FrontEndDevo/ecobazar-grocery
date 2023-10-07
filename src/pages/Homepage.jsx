@@ -5,7 +5,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import Delivery from "../components/Delivery";
 import Footer from "../components/Footer";
 
-const Homepage = () => {
+const HomePage = () => {
   return (
     <>
       <Navbar />
@@ -18,4 +18,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomePage;

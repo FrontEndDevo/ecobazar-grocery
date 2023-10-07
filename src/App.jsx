@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { restaurantsActions } from "./redux/slices/restaurantsSlice.js";
 import { fruitsActions } from "./redux/slices/fruitsSlice";
-import Homepage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 const App = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </>
