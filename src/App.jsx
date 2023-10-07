@@ -8,6 +8,7 @@ import { restaurantsActions } from "./redux/slices/restaurantsSlice.js";
 import { fruitsActions } from "./redux/slices/fruitsSlice";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
+import PageNotFound from "./pages/PageNotFound";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -45,6 +46,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
   );
