@@ -25,7 +25,7 @@ const Navbar = () => {
         item == location.pathname.slice(1) ? "text-primary-500" : ""
       } ${index == 0 && location.pathname == "/" ? "text-primary-500" : ""}`}
     >
-      <Link href={`/${index == 0 ? "" : item}`}>{item}</Link>
+      <Link to={`/${index == 0 ? "" : item}`}>{item}</Link>
     </li>
   ));
 
@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="container relative flex flex-col items-center justify-between lg:flex-row">
         <div>
           <Link
-            href="/"
+            to="/"
             className="flex flex-row-reverse items-center justify-center gap-2 my-4 lg:flex-row lg:justify-start"
           >
             <img src={ecobazarImg} alt="Ecobazar logo" />
