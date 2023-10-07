@@ -12,6 +12,7 @@ import {
   faCheck,
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
+import Team from "./Team";
 
 export const ourServices = [
   {
@@ -145,6 +146,7 @@ const About = () => {
           </button>
         </div>
       </div>
+      <Team />
     </section>
   );
 };
