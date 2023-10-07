@@ -17,17 +17,13 @@ const footerServicesLinks = [
 const Footer = () => {
   const footerCompanyLists = footerCompanyLinks.map((item, index) => (
     <li key={index} className="py-2 text-base duration-200 hover:underline">
-      <Link href={`/${item.toLocaleLowerCase().replace(" ", "-")}`}>
-        {item}
-      </Link>
+      <Link to={`/${item.toLocaleLowerCase().replace(" ", "-")}`}>{item}</Link>
     </li>
   ));
 
   const footerServicesLists = footerServicesLinks.map((item, index) => (
     <li key={index} className="py-2 text-base duration-200 hover:underline">
-      <Link href={`/${item.toLocaleLowerCase().replace(" ", "-")}`}>
-        {item}
-      </Link>
+      <Link to={`/${item.toLocaleLowerCase().replace(" ", "-")}`}>{item}</Link>
     </li>
   ));
 
@@ -37,7 +33,7 @@ const Footer = () => {
         <div className="flex flex-col gap-20 py-10 text-center lg:text-start xl:flex-row lg:gap-60">
           <div className="basis-1/2">
             <Link
-              href="/"
+              to="/"
               className="flex items-center justify-center gap-2 my-4 lg:justify-start"
             >
               <img src={ezobazarImg} alt="Ecobazar logo" />
@@ -69,19 +65,19 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between gap-2 py-6 border-t-2 md:flex-row">
           <p>
             All Rights Reserved &copy;{" "}
-            <Link href="https://github.com/FrontEndDevo" target="_blank">
+            <Link to="https://github.com/FrontEndDevo" target="_blank">
               FrontEndDevo 2023
             </Link>
           </p>
           <div className="flex gap-4">
             <Link
-              href="/terms-and-conditions"
+              to="/terms-and-conditions"
               className="py-2 text-base duration-200 hover:underline"
             >
               Terms Conditions
             </Link>
             <Link
-              href="/privacy-policy"
+              to="/privacy-policy"
               className="py-2 text-base duration-200 hover:underline"
             >
               Privacy Policy
