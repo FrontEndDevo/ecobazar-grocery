@@ -8,8 +8,8 @@ import { useSelector } from "react-redux";
 
 const RestaurantsList = () => {
   const restaurants = useSelector((state) => state.restaurants.restaurants);
-  console.log(restaurants);
-  const settings = {
+
+  const benefitsSettings = {
     arrows: false,
     dots: true,
     infinite: true,
@@ -40,26 +40,43 @@ const RestaurantsList = () => {
     ],
   };
 
+  const restaurantsSettings = {
+    arrows: true,
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 16,
+    slidesToScroll: 1,
+    vertical: true,
+    verticalSwiping: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 1500,
+    pauseOnHover: true,
+  };
+
   const groverRestaurants = (
-    <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:flex-col lg:flex">
-      {restaurants.map((rest, index) => (
-        <Link
-          key={index}
-          className={`p-3 text-center lg:text-start text-2xl duration-300 lg:bg-white text-main-700 lg:text-main-700 lg:hover:text-white lg:hover:bg-primary-500 ${
-            index % 2 == 0
-              ? "bg-primary-500 hover:bg-white hover:text-main-700 text-white"
-              : "bg-white hover:bg-primary-500 hover:text-white text-main-700"
-          }`}
-          to={rest.restaurantName.toLowerCase().replace(" ", "-")}
-        >
-          {rest.restaurantName}
-        </Link>
-      ))}
+    <ul className="grid grid-cols-1 gap-2 lg:flex-col lg:flex">
+      <Slider {...restaurantsSettings}>
+        {restaurants.map((rest, index) => (
+          <Link
+            key={index}
+            className={`p-3 text-center lg:text-start text-2xl duration-300 lg:bg-white text-main-700 lg:text-main-700 lg:hover:text-white lg:hover:bg-primary-500 ${
+              index % 2 == 0
+                ? "bg-primary-500 hover:bg-white hover:text-main-700 text-white"
+                : "bg-white hover:bg-primary-500 hover:text-white text-main-700"
+            }`}
+            to={rest.restaurantName.toLowerCase().replace(" ", "-")}
+          >
+            {rest.restaurantName}
+          </Link>
+        ))}
+      </Slider>
     </ul>
   );
 
   const groverBenefits = (
-    <Slider {...settings}>
+    <Slider {...benefitsSettings}>
       {srvs.map((srv, index) => (
         <li key={index}>
           <div className="flex flex-col items-center justify-center gap-4 p-6 text-center lg:text-start lg:flex-row">
@@ -82,7 +99,7 @@ const RestaurantsList = () => {
   );
 
   return (
-    <div className="mx-2 lg:mx-8">
+    <div className="mx-6 lg:mx-8">
       <div className="flex flex-col gap-8 lg:flex-row-reverse">
         <div className="relative basis-5/6">
           <img
