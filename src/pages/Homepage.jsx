@@ -4,6 +4,7 @@ import Benefits from "../components/Benefits";
 import WhyChooseUs from "../components/WhyChooseUs";
 import Delivery from "../components/Delivery";
 import Footer from "../components/Footer";
+import LatestMeals from "../components/LatestMeals";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
       <Benefits />
       <WhyChooseUs />
       <Delivery />
+      <LatestMeals />
       <Footer />
     </>
   );
