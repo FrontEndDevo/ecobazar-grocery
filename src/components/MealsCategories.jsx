@@ -2,10 +2,13 @@ import { faArrowRight, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Slider from "react-slick";
 
 const MealsCategories = () => {
   const [mealsCategories, setMealsCategories] = useState([]);
   const [error, setError] = useState(false);
+
+  // Fetch the meals categories from (TheMealDB) website.
   useEffect(() => {
     const fetchMealsCategories = async () => {
       await axios
@@ -21,11 +24,40 @@ const MealsCategories = () => {
     fetchMealsCategories();
   }, []);
 
-  console.log(mealsCategories);
+  const settings = {
+    arrows: false,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    pauseOnHover: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+    ],
+  };
 
   return (
     <section className="py-20 bg-slate-50">
-      <h2 className="mb-12 text-5xl font-bold text-center capitalize text-main-700">
+      <h2 className="mb-12 text-2xl font-bold text-center capitalize lg:text-5xl text-main-700">
         latest categories of meals
       </h2>
       {error && (
@@ -39,29 +71,31 @@ const MealsCategories = () => {
         </p>
       )}
       {mealsCategories.length != 0 && !error && (
-        <div className="container grid grid-cols-4 gap-12">
-          {mealsCategories.map((cat, i) => (
-            <div key={cat.i} className="bg-white rounded-lg">
-              <img
-                src={cat.strCategoryThumb}
-                alt={cat.strCategory}
-                className="w-full"
-              />
-              <div className="p-4">
-                <h4 className="px-4 mx-auto font-bold border-b-2 border-red-500 rounded w-fit text-main-700">
-                  {cat.strCategory}
-                </h4>
-                <p className="my-4 text-justify">
-                  {cat.strCategoryDescription.length <= 200
-                    ? cat.strCategoryDescription
-                    : cat.strCategoryDescription.slice(0, 200) + "..."}
-                </p>
-                <button className="flex items-center justify-center w-full gap-4 p-2 font-bold duration-200 text-primary-500 hover:text-primary-700 hover:bg-primary-100 rounded-xl lg:w-fit">
-                  Read More <FontAwesomeIcon icon={faArrowRight} />
-                </button>
+        <div className="container">
+          <Slider {...settings}>
+            {mealsCategories.map((cat, i) => (
+              <div key={cat.i} className="bg-white rounded-lg">
+                <img
+                  src={cat.strCategoryThumb}
+                  alt={cat.strCategory}
+                  className="w-full"
+                />
+                <div className="p-4">
+                  <h4 className="px-4 mx-auto font-bold border-b-2 border-red-500 rounded w-fit text-main-700">
+                    {cat.strCategory}
+                  </h4>
+                  <p className="my-4 text-justify">
+                    {cat.strCategoryDescription.length <= 200
+                      ? cat.strCategoryDescription
+                      : cat.strCategoryDescription.slice(0, 200) + "..."}
+                  </p>
+                  <button className="flex items-center justify-center w-full gap-4 p-2 font-bold duration-200 text-primary-500 hover:text-primary-700 hover:bg-primary-100 rounded-xl lg:w-fit">
+                    Read More <FontAwesomeIcon icon={faArrowRight} />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </Slider>
         </div>
       )}
     </section>
