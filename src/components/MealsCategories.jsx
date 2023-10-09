@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const LatestMeals = () => {
+const MealsCategories = () => {
   const [mealsCategories, setMealsCategories] = useState([]);
   useEffect(() => {
     const fetchMealsCategories = async () => {
@@ -19,7 +19,7 @@ const LatestMeals = () => {
 
   console.log(mealsCategories);
 
-  return <div>mealsCategories</div>;
+  return <div>MealsCategories</div>;
 };
 
-export default LatestMeals;
+export default MealsCategories;
