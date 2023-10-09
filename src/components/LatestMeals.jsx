@@ -2,24 +2,24 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const LatestMeals = () => {
-  const [meals, setMeals] = useState([]);
+  const [mealsCategories, setMealsCategories] = useState([]);
   useEffect(() => {
-    const fetchMeals = async () => {
+    const fetchMealsCategories = async () => {
       await axios
-        .get("https://www.themealdb.com/api/json/v1/1/search.php?f=a")
+        .get(import.meta.env.VITE_LATEST_MEALS_CATEGORIES)
         .then((data) => {
-          setMeals(data?.data);
+          setMealsCategories(data?.data.categories);
         })
         .catch((err) => {
           console.log(`Something went wrong! ${err}`);
         });
     };
-    fetchMeals();
+    fetchMealsCategories();
   }, []);
 
-  console.log(meals);
+  console.log(mealsCategories);
 
-  return <div>LatestMeals</div>;
+  return <div>mealsCategories</div>;
 };
 
 export default LatestMeals;
