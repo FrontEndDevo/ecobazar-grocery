@@ -6,6 +6,7 @@ import Delivery from "../components/Delivery";
 import Footer from "../components/Footer";
 import MealsCategories from "../components/MealsCategories";
 import Statistics from "../components/Statistics";
+import OrganicFoodFeature from "../components/OrganicFoodFeature";
 
 const HomePage = () => {
   return (
@@ -17,6 +18,7 @@ const HomePage = () => {
       <Delivery />
       <MealsCategories />
       <Statistics />
+      <OrganicFoodFeature />
       <Footer />
     </>
   );
