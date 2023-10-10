@@ -74,7 +74,7 @@ const MealsCategories = () => {
         <div className="container">
           <Slider {...settings}>
             {mealsCategories.map((cat, i) => (
-              <div key={cat.i} className="bg-white rounded-lg">
+              <div key={i} className="bg-white rounded-lg">
                 <img
                   src={cat.strCategoryThumb}
                   alt={cat.strCategory}
