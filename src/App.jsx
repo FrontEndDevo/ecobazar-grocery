@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import PageNotFound from "./pages/PageNotFound";
 import RestaurantsPage from "./pages/RestaurantsPage";
+import ShopPage from "./pages/ShopPage";
 const App = () => {
   const dispatch = useDispatch();
 
@@ -48,6 +49,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/restaurants" element={<RestaurantsPage />} />
+        <Route path="/shop" element={<ShopPage />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
