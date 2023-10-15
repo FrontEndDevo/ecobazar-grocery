@@ -1,12 +1,14 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { mealsActions } from "../redux/slices/mealsSlice";
 import Shop from "../components/Shop";
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const ShopPage = () => {
+  const [mealsError, setMealsError] = useState(null);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +25,7 @@ const ShopPage = () => {
             );
           })
           .catch((err) => {
-            throw new Error(`Something went wrong! Error:${err}`);
+            setMealsError(`Something went wrong! Error:${err}`);
           });
       });
     };
@@ -33,7 +35,7 @@ const ShopPage = () => {
   return (
     <>
       <Navbar />
-      <Shop />
+      <Shop error={mealsError} />
       <Footer />
     </>
   );
