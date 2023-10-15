@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 
 const Shop = ({ error }) => {
   const meals = [];
-  const data = useSelector((state) => state.meals).allMeals.forEach((e) =>
+  const storedMeals = useSelector((state) => state.meals);
+  storedMeals.allMeals.forEach((e) =>
     e.meals.forEach((ele) => meals.push(ele))
   );
 
@@ -55,6 +56,14 @@ const Shop = ({ error }) => {
         <h2 className="pb-4 mx-auto mb-10 text-5xl font-bold border-b-4 rounded-xl border-primary-500 w-fit text-main-700">
           Featured Meals
         </h2>
+        <p className="mb-4 text-base italic font-bold text-main-700">
+          Available meals &lt;
+          <span className="text-xl text-orange-600">
+            {" "}
+            {storedMeals.totalNumOfMeals}{" "}
+          </span>
+          &gt;
+        </p>
         {error && (
           <p className="text-xl font-bold text-center text-red-600">
             oops..Something went wrong!
