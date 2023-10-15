@@ -16,8 +16,6 @@ const Shop = ({ error }) => {
             ? meal.strMeal.slice(0, 20) + "..."
             : meal.strMeal;
 
-        const randomMealPrice = (Math.random() * 100).toFixed(2);
-
         return (
           <li
             key={meal.idMeal}
@@ -39,9 +37,7 @@ const Shop = ({ error }) => {
                 </div>
               </div>
               <div className="flex flex-col items-center justify-center gap-2">
-                <span className="font-bold text-green-800">
-                  ${randomMealPrice}
-                </span>
+                <span className="font-bold text-green-800">${meal.price}</span>
                 <button className="px-3 py-1 text-2xl text-white duration-100 bg-green-500 rounded-full hover:-translate-y-2">
                   +
                 </button>

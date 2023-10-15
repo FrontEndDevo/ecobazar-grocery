@@ -5,6 +5,7 @@ const initialState = {
   totalMealsTypes: 0,
   totalNumOfMeals: 0,
 };
+4;
 
 export const mealsSlice = createSlice({
   name: "meals",
@@ -17,9 +18,14 @@ export const mealsSlice = createSlice({
 
       // Check if the meals array stored before or not.
       if (filteredMealType.length == 0) {
+        // Add (price) property to each meal then create a newMeal obj.
+        const mealsWithPrice = action.payload.meals.map((meal) => {
+          return { ...meal, price: (Math.random() * 100).toFixed(2) };
+        });
+
         const newMeal = {
           letter: action.payload.letter,
-          meals: action.payload.meals,
+          meals: mealsWithPrice,
         };
         state.allMeals.push(newMeal);
 
