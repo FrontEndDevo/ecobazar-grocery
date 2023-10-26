@@ -1,6 +1,7 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
+import ShopFilter from "./ShopFilter";
 
 const Shop = ({ error }) => {
   const meals = [];
@@ -27,9 +28,6 @@ const Shop = ({ error }) => {
               alt={meal.strMeal}
               className="w-full rounded-lg h-2/3"
             />
-            <h5 className="absolute left-0 p-1 text-xl italic font-bold text-white border-2 border-l-0 rounded border-primary-100 top-[60%]">
-              {meal.strCategory}
-            </h5>
             <div className="flex justify-between gap-2 px-2 py-2">
               <div>
                 <div>
@@ -64,17 +62,23 @@ const Shop = ({ error }) => {
           </span>
           &gt;
         </p>
+
         {error && (
           <p className="text-xl font-bold text-center text-red-600">
             oops..Something went wrong!
           </p>
         )}
+
         {meals.length == 0 && !error && (
           <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
             <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading Meals...
           </p>
         )}
-        {allRenderedMeals}
+
+        <div className="flex">
+          <ShopFilter />
+          {allRenderedMeals}
+        </div>
       </div>
     </section>
   );

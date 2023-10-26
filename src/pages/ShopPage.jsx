@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { mealsActions } from "../redux/slices/mealsSlice";
 import Shop from "../components/Shop";
-const alphabet = "abcdefghijklmnopqrstuvwxyz";
+export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 const ShopPage = () => {
   const [mealsError, setMealsError] = useState(null);
 
