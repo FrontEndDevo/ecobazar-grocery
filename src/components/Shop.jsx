@@ -1,9 +1,12 @@
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import ShopFilter from "./ShopFilter";
+import { useState } from "react";
 
 const Shop = ({ error }) => {
+  const [openFilters, setOpenFilters] = useState(false);
+
   const meals = [];
   const storedMeals = useSelector((state) => state.meals);
   storedMeals.allMeals.forEach((e) =>
@@ -11,7 +14,7 @@ const Shop = ({ error }) => {
   );
 
   const allRenderedMeals = (
-    <ul className="flex flex-wrap items-center justify-center gap-10">
+    <ul className="flex flex-wrap items-center justify-center gap-6">
       {meals.map((meal) => {
         const mealName =
           meal.strMeal.length > 20
@@ -21,12 +24,12 @@ const Shop = ({ error }) => {
         return (
           <li
             key={meal.idMeal}
-            className="relative w-[300px] h-fit border-2 rounded-lg border-blue-300"
+            className="relative w-[300px] h-fit border-2 rounded-lg"
           >
             <img
               src={meal.strMealThumb}
               alt={meal.strMeal}
-              className="w-full rounded-lg h-2/3"
+              className="w-full rounded-t-lg h-2/3"
             />
             <div className="flex justify-between gap-2 px-2 py-2">
               <div>
@@ -48,20 +51,16 @@ const Shop = ({ error }) => {
     </ul>
   );
 
+  const toggleFiltersHandler = () => {
+    setOpenFilters((prevState) => !prevState);
+  };
+
   return (
     <section className="py-24">
       <div className="container">
         <h2 className="pb-4 mx-auto mb-10 text-5xl font-bold border-b-4 rounded-xl border-primary-500 w-fit text-main-700">
           Featured Meals
         </h2>
-        <p className="mb-4 text-base italic font-bold text-main-700">
-          Available meals &lt;
-          <span className="text-xl text-orange-600">
-            {" "}
-            {storedMeals.totalNumOfMeals}{" "}
-          </span>
-          &gt;
-        </p>
 
         {error && (
           <p className="text-xl font-bold text-center text-red-600">
@@ -75,10 +74,28 @@ const Shop = ({ error }) => {
           </p>
         )}
 
-        <div className="flex">
-          <ShopFilter />
-          {allRenderedMeals}
-        </div>
+        {meals.length != 0 && !error && (
+          <div>
+            <p className="mb-4 text-base italic font-bold text-main-700">
+              Available meals &lt;
+              <span className="text-xl text-orange-600">
+                {" "}
+                {storedMeals.totalNumOfMeals}{" "}
+              </span>
+              &gt;
+            </p>
+            <h2
+              onClick={toggleFiltersHandler}
+              className="flex items-center gap-2 p-4 mb-4 text-3xl font-bold duration-200 border border-black rounded cursor-pointer w-fit hover:bg-gray-100 text-main-700"
+            >
+              <FontAwesomeIcon icon={faFilter} /> Filter
+            </h2>
+            <div className="flex gap-4">
+              {openFilters && <ShopFilter />}
+              {allRenderedMeals}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,9 +1,14 @@
 import { useSelector } from "react-redux";
 import { alphabet } from "../pages/ShopPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 const ShopFilter = () => {
+  const [letters, setLetters] = useState(false);
+  const [areas, setAreas] = useState(false);
+  const [categories, setCategories] = useState(false);
+
   const filters = {
     letters: alphabet,
     categories: [],
@@ -27,9 +32,9 @@ const ShopFilter = () => {
 
   // Render all filter arrays:
   const ShopFilterByLetters = (
-    <ul>
+    <ul className="grid grid-cols-2 mt-4">
       {filters.letters.split("").map((item, i) => (
-        <li key={i}>
+        <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
           <label htmlFor="checkbox">{item}</label>
         </li>
@@ -38,9 +43,9 @@ const ShopFilter = () => {
   );
 
   const ShopFilterByAreas = (
-    <ul>
+    <ul className="grid grid-cols-1 mt-4">
       {filters.areas.map((item, i) => (
-        <li key={i}>
+        <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
           <label htmlFor="checkbox">{item}</label>
         </li>
@@ -49,9 +54,9 @@ const ShopFilter = () => {
   );
 
   const ShopFilterByCategories = (
-    <ul>
+    <ul className="grid grid-cols-1 mt-4">
       {filters.categories.map((item, i) => (
-        <li key={i}>
+        <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
           <label htmlFor="checkbox">{item}</label>
         </li>
@@ -59,28 +64,66 @@ const ShopFilter = () => {
     </ul>
   );
 
+  // Btns to control toggling filters:
+  const toggleLetterHandler = () => {
+    setLetters((prevState) => !prevState);
+  };
+
+  const toggleAreaHandler = () => {
+    setAreas((prevState) => !prevState);
+  };
+
+  const toggleCategoryHandler = () => {
+    setCategories((prevState) => !prevState);
+  };
+
+  const keywordClasses =
+    "flex gap-4 items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer text-2xl font-bold duration-300 border-b-2 text-main-700";
+
   return (
     <aside>
-      <h2>
-        <FontAwesomeIcon icon={faFilter} /> Filters
-      </h2>
-
-      <div>
-        <div>
-          <span>Letter</span>
-          {ShopFilterByLetters}
-        </div>
-
-        <div>
-          <span>Area</span>
-          {ShopFilterByAreas}
-        </div>
-
-        <div>
-          <span>Category</span>
-          {ShopFilterByCategories}
-        </div>
+      <div className="p-2 mb-2">
+        <span onClick={toggleLetterHandler} className={keywordClasses}>
+          Letter
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={`text-xl duration-300 text-main-500 ${
+              letters && "-rotate-180"
+            }`}
+          />
+        </span>
+        {letters && ShopFilterByLetters}
       </div>
+
+      <div className="p-2 mb-2">
+        <span onClick={toggleAreaHandler} className={keywordClasses}>
+          Area
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={`text-xl duration-300 text-main-500 ${
+              areas && "-rotate-180"
+            }`}
+          />
+        </span>
+        {areas && ShopFilterByAreas}
+      </div>
+
+      <div className="p-2 mb-2">
+        <span onClick={toggleCategoryHandler} className={keywordClasses}>
+          Category
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={`text-xl duration-300 text-main-500 ${
+              categories && "-rotate-180"
+            }`}
+          />
+        </span>
+        {categories && ShopFilterByCategories}
+      </div>
+
+      <button className="w-full p-2 mt-4 text-xl font-bold duration-300 border-2 border-blue-900 rounded-full hover:text-white hover:bg-blue-900 text-main-700">
+        Apply
+      </button>
     </aside>
   );
 };
