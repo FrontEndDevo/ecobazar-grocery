@@ -56,9 +56,9 @@ const Shop = ({ error }) => {
   };
 
   return (
-    <section className="py-24">
+    <section className="text-center lg:text-start py-60 lg:py-24">
       <div className="container">
-        <h2 className="pb-4 mx-auto mb-10 text-5xl font-bold border-b-4 rounded-xl border-primary-500 w-fit text-main-700">
+        <h2 className="pb-4 mx-auto mb-10 text-3xl font-bold border-b-4 lg:text-5xl rounded-xl border-primary-500 w-fit text-main-700">
           Featured Meals
         </h2>
 
@@ -86,11 +86,11 @@ const Shop = ({ error }) => {
             </p>
             <h2
               onClick={toggleFiltersHandler}
-              className="flex items-center gap-2 p-4 mb-4 text-3xl font-bold duration-200 border border-black rounded cursor-pointer w-fit hover:bg-gray-100 text-main-700"
+              className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
             >
               <FontAwesomeIcon icon={faFilter} /> Filter
             </h2>
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-4 md:flex-row">
               {openFilters && <ShopFilter />}
               {allRenderedMeals}
             </div>

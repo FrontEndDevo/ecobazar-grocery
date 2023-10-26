@@ -32,7 +32,7 @@ const ShopFilter = () => {
 
   // Render all filter arrays:
   const ShopFilterByLetters = (
-    <ul className="grid grid-cols-2 mt-4">
+    <ul className="grid grid-cols-5 mt-4 md:grid-cols-2">
       {filters.letters.split("").map((item, i) => (
         <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
@@ -43,7 +43,7 @@ const ShopFilter = () => {
   );
 
   const ShopFilterByAreas = (
-    <ul className="grid grid-cols-1 mt-4">
+    <ul className="grid grid-cols-2 mt-4 md:grid-cols-1">
       {filters.areas.map((item, i) => (
         <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
@@ -54,7 +54,7 @@ const ShopFilter = () => {
   );
 
   const ShopFilterByCategories = (
-    <ul className="grid grid-cols-1 mt-4">
+    <ul className="grid grid-cols-2 mt-4 md:grid-cols-1">
       {filters.categories.map((item, i) => (
         <li key={i} className="flex items-center gap-2 my-1">
           <input type="checkbox" name="input-Checkbox" id="checkbox" />
@@ -81,7 +81,7 @@ const ShopFilter = () => {
     "flex gap-4 items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer text-2xl font-bold duration-300 border-b-2 text-main-700";
 
   return (
-    <aside>
+    <aside className="mx-4 md:mx-0">
       <div className="p-2 mb-2">
         <span onClick={toggleLetterHandler} className={keywordClasses}>
           Letter
