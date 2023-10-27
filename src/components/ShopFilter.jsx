@@ -8,6 +8,9 @@ const filterReducer = {
   openLetters: false,
   openAreas: false,
   openCategories: false,
+  letters: [],
+  areas: [],
+  categories: [],
 };
 
 const filterReducerFn = (state, action) => {
@@ -28,6 +31,24 @@ const filterReducerFn = (state, action) => {
         openCategories: !state.openCategories,
       };
 
+    case "LETTERS":
+      return {
+        ...state,
+        letters: action.array,
+      };
+
+    case "AREAS":
+      return {
+        ...state,
+        areas: action.array,
+      };
+
+    case "CATEGORIES":
+      return {
+        ...state,
+        categories: action.array,
+      };
+
     default:
       return { ...state };
   }
@@ -35,6 +56,7 @@ const filterReducerFn = (state, action) => {
 
 const ShopFilter = () => {
   const [filters, dispatch] = useReducer(filterReducerFn, filterReducer);
+  console.log(filters);
 
   const filtersOptions = {
     letters: alphabet,
@@ -57,9 +79,19 @@ const ShopFilter = () => {
     });
   });
 
-  // Track if a checkbox is checked or not.
-  const changeLetterCheckboxHandler = (val) => {
-    console.log(val);
+  // Track if a (letter || area || category) checkbox is checked or not.
+  const checkingTheCheckboxes = (filterArray, checkboxVal, dispatchKeyword) => {
+    const isChecked = filterArray.includes(checkboxVal);
+
+    // Here we send new array with/without the checked item:
+    if (isChecked) {
+      const array = filterArray.filter((item) => item != checkboxVal);
+      dispatch({ type: dispatchKeyword, array });
+    } else {
+      const array = filterArray;
+      array.push(checkboxVal);
+      dispatch({ type: dispatchKeyword, array });
+    }
   };
 
   // Render all filter arrays:
@@ -69,11 +101,14 @@ const ShopFilter = () => {
         <li key={i} className="flex items-center gap-2 my-1">
           <input
             type="checkbox"
-            name="input-Checkbox"
-            id="checkbox"
-            onChange={() => changeLetterCheckboxHandler(item)}
+            name="checkbox"
+            id="letter-checkbox"
+            checked={filters.letters.includes(item)}
+            onChange={() =>
+              checkingTheCheckboxes(filters.letters, item, "LETTERS")
+            }
           />
-          <label htmlFor="checkbox">{item}</label>
+          <label htmlFor="letter-checkbox">{item}</label>
         </li>
       ))}
     </ul>
@@ -83,8 +118,14 @@ const ShopFilter = () => {
     <ul className="grid grid-cols-2 mt-4 md:grid-cols-1">
       {filtersOptions.areas.map((item, i) => (
         <li key={i} className="flex items-center gap-2 my-1">
-          <input type="checkbox" name="input-Checkbox" id="checkbox" />
-          <label htmlFor="checkbox">{item}</label>
+          <input
+            type="checkbox"
+            name="checkbox"
+            id="area-checkbox"
+            checked={filters.areas.includes(item)}
+            onChange={() => checkingTheCheckboxes(filters.areas, item, "AREAS")}
+          />
+          <label htmlFor="area-checkbox">{item}</label>
         </li>
       ))}
     </ul>
@@ -94,8 +135,16 @@ const ShopFilter = () => {
     <ul className="grid grid-cols-2 mt-4 md:grid-cols-1">
       {filtersOptions.categories.map((item, i) => (
         <li key={i} className="flex items-center gap-2 my-1">
-          <input type="checkbox" name="input-Checkbox" id="checkbox" />
-          <label htmlFor="checkbox">{item}</label>
+          <input
+            type="checkbox"
+            name="checkbox"
+            id="category-checkbox"
+            checked={filters.categories.includes(item)}
+            onChange={() =>
+              checkingTheCheckboxes(filters.categories, item, "CATEGORIES")
+            }
+          />
+          <label htmlFor="category-checkbox">{item}</label>
         </li>
       ))}
     </ul>
