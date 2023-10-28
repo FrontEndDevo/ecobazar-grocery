@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { alphabet } from "../pages/ShopPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 
 const filterReducer = {
   openLetters: false,
@@ -54,10 +54,9 @@ const filterReducerFn = (state, action) => {
   }
 };
 
-const ShopFilter = () => {
+const ShopFilter = ({ getFilters }) => {
   const [filters, dispatch] = useReducer(filterReducerFn, filterReducer);
-  console.log(filters);
-
+  const [filtersError, setFiltersError] = useState(false);
   const filtersOptions = {
     letters: alphabet,
     categories: [],
@@ -163,6 +162,24 @@ const ShopFilter = () => {
     dispatch({ type: "OPEN_CATEGORIES" });
   };
 
+  // Send selected filters to parent component (Shop) to filter the meals:
+  const applyShopFiltersHandler = () => {
+    if (
+      filters.letters.length != 0 ||
+      filters.areas.length != 0 ||
+      filters.categories.length != 0
+    ) {
+      setFiltersError(false);
+      getFilters({
+        letters: filters.letters,
+        areas: filters.areas,
+        categories: filters.categories,
+      });
+    } else {
+      setFiltersError(true);
+    }
+  };
+
   const keywordClasses =
     "flex gap-4 items-center justify-between p-2 rounded-lg hover:bg-gray-100 cursor-pointer text-2xl font-bold duration-300 border-b-2 text-main-700";
 
@@ -207,9 +224,18 @@ const ShopFilter = () => {
         {filters.openCategories && ShopFilterByCategories}
       </div>
 
-      <button className="w-full p-2 mt-4 text-xl font-bold duration-300 border-2 border-blue-900 rounded-full hover:text-white hover:bg-blue-900 text-main-700">
+      <button
+        onClick={applyShopFiltersHandler}
+        className="w-full p-2 mt-4 text-xl font-bold duration-300 border-2 border-blue-900 rounded-full hover:text-white hover:bg-blue-900 text-main-700"
+      >
         Apply
       </button>
+
+      {filtersError && (
+        <p className="mt-4 text-sm font-bold text-red-700">
+          Please select some filters.
+        </p>
+      )}
     </aside>
   );
 };

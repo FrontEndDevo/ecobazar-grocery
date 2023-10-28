@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Shop = ({ error }) => {
   const [openFilters, setOpenFilters] = useState(false);
-
+  const [userFilters, setUserFilters] = useState({});
   const meals = [];
   const storedMeals = useSelector((state) => state.meals);
   storedMeals.allMeals.forEach((e) =>
@@ -50,10 +50,17 @@ const Shop = ({ error }) => {
       })}
     </ul>
   );
-
+  // show and hide filters component.
   const toggleFiltersHandler = () => {
     setOpenFilters((prevState) => !prevState);
   };
+
+  // Get filters obj when user click "apply" btn.
+  const getUserFiltersHandler = (filters) => {
+    setUserFilters(filters);
+  };
+
+  console.log(userFilters);
 
   return (
     <section className="text-center lg:text-start py-60 lg:py-24">
@@ -91,7 +98,7 @@ const Shop = ({ error }) => {
               <FontAwesomeIcon icon={faFilter} /> Filter
             </h2>
             <div className="flex flex-col gap-4 md:flex-row">
-              {openFilters && <ShopFilter />}
+              {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
               {allRenderedMeals}
             </div>
           </div>
