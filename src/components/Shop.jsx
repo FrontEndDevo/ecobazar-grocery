@@ -6,16 +6,47 @@ import { useState } from "react";
 
 const Shop = ({ error }) => {
   const [openFilters, setOpenFilters] = useState(false);
-  const [userFilters, setUserFilters] = useState({});
+  const [filteredMeals, setFilteredMeals] = useState([]);
+  // Get all meals from Redux store.
   const meals = [];
   const storedMeals = useSelector((state) => state.meals);
   storedMeals.allMeals.forEach((e) =>
     e.meals.forEach((ele) => meals.push(ele))
   );
 
+  // Get filters obj when user click "apply" btn and filter all meals.
+  const getUserFiltersHandler = (filters) => {
+    const filteredMeals = [];
+    // Get all meals with (letters) filter.
+    filters.letters.forEach((letter) => {
+      const mealsArrByLetter = meals.filter(
+        (meal) => meal.strMeal.charAt(0).toLowerCase() == letter
+      );
+      filteredMeals.push(...mealsArrByLetter);
+    });
+
+    // Get all meals with (areas) filter.
+    filters.areas.forEach((area) => {
+      const mealsArrByArea = meals.filter((meal) => meal.strArea == area);
+      filteredMeals.push(...mealsArrByArea);
+    });
+
+    // Get all meals with (categories) filter.
+    filters.categories.forEach((category) => {
+      const mealsArrByCategory = meals.filter(
+        (meal) => meal.strCategory == category
+      );
+      filteredMeals.push(...mealsArrByCategory);
+    });
+
+    setFilteredMeals(filteredMeals);
+  };
+
+  // Render all meals from Redux store OR render all filtered meals:
+  const neededMeals = filteredMeals.length != 0 ? filteredMeals : meals;
   const allRenderedMeals = (
     <ul className="flex flex-wrap items-center justify-center gap-6">
-      {meals.map((meal) => {
+      {neededMeals.map((meal, index) => {
         const mealName =
           meal.strMeal.length > 20
             ? meal.strMeal.slice(0, 20) + "..."
@@ -23,7 +54,7 @@ const Shop = ({ error }) => {
 
         return (
           <li
-            key={meal.idMeal}
+            key={index}
             className="relative w-[300px] h-fit border-2 rounded-lg"
           >
             <img
@@ -55,13 +86,6 @@ const Shop = ({ error }) => {
     setOpenFilters((prevState) => !prevState);
   };
 
-  // Get filters obj when user click "apply" btn.
-  const getUserFiltersHandler = (filters) => {
-    setUserFilters(filters);
-  };
-
-  console.log(userFilters);
-
   return (
     <section className="text-center lg:text-start py-60 lg:py-24">
       <div className="container">
@@ -87,7 +111,7 @@ const Shop = ({ error }) => {
               Available meals &lt;
               <span className="text-xl text-orange-600">
                 {" "}
-                {storedMeals.totalNumOfMeals}{" "}
+                {neededMeals.length}{" "}
               </span>
               &gt;
             </p>
@@ -97,6 +121,7 @@ const Shop = ({ error }) => {
             >
               <FontAwesomeIcon icon={faFilter} /> Filter
             </h2>
+
             <div className="flex flex-col gap-4 md:flex-row">
               {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
               {allRenderedMeals}
