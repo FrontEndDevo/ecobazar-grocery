@@ -49,8 +49,15 @@ const filterReducerFn = (state, action) => {
         categories: action.array,
       };
 
-    default:
-      return { ...state };
+    case "RESET":
+      return {
+        openLetters: false,
+        openAreas: false,
+        openCategories: false,
+        letters: [],
+        areas: [],
+        categories: [],
+      };
   }
 };
 
@@ -178,6 +185,9 @@ const ShopFilter = ({ getFilters }) => {
     } else {
       setFiltersError(true);
     }
+
+    // Reset all filters:
+    dispatch({ type: "RESET" });
   };
 
   const keywordClasses =

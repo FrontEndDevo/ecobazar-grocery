@@ -86,6 +86,10 @@ const Shop = ({ error }) => {
     setOpenFilters((prevState) => !prevState);
   };
 
+  const resetFilteredMealsHandler = () => {
+    setFilteredMeals([]);
+  };
+
   return (
     <section className="text-center lg:text-start py-60 lg:py-24">
       <div className="container">
@@ -99,13 +103,13 @@ const Shop = ({ error }) => {
           </p>
         )}
 
-        {meals.length == 0 && !error && (
+        {neededMeals.length == 0 && !error && (
           <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
             <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading Meals...
           </p>
         )}
 
-        {meals.length != 0 && !error && (
+        {neededMeals.length != 0 && !error && (
           <div>
             <p className="mb-4 text-base italic font-bold text-main-700">
               Available meals &lt;
@@ -115,13 +119,20 @@ const Shop = ({ error }) => {
               </span>
               &gt;
             </p>
-            <h2
-              onClick={toggleFiltersHandler}
-              className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
-            >
-              <FontAwesomeIcon icon={faFilter} /> Filter
-            </h2>
-
+            <div className="flex items-center justify-between">
+              <h2
+                onClick={toggleFiltersHandler}
+                className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
+              >
+                <FontAwesomeIcon icon={faFilter} /> Filter
+              </h2>
+              <button
+                onClick={resetFilteredMealsHandler}
+                className="p-1 text-sm font-bold text-white duration-200 bg-red-600 rounded-sm hover:bg-red-800"
+              >
+                Reset
+              </button>
+            </div>
             <div className="flex flex-col gap-4 md:flex-row">
               {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
               {allRenderedMeals}
