@@ -46,7 +46,7 @@ const Header = () => {
           <div className="flex flex-col items-center gap-10 mx-4 lg:gap-20 lg:flex-row">
             <Link
               to="/shop"
-              className="w-full px-8 py-4 text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700"
+              className="w-full px-8 py-4 text-center text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700"
             >
               Order Now
             </Link>
