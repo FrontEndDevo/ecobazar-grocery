@@ -13,6 +13,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Team from "./Team";
+import { Link } from "react-router-dom";
 
 export const ourServices = [
   {
@@ -144,9 +145,12 @@ const About = () => {
             nunc eget elementum.
           </p>
           {ourDeliverFeatures}
-          <button className="flex items-center justify-center w-full gap-4 px-8 py-4 text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700 lg:w-fit">
+          <Link
+            to="/shop"
+            className="flex items-center justify-center w-full gap-4 px-8 py-4 text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700 lg:w-fit"
+          >
             Shop Now <FontAwesomeIcon icon={faArrowRight} />
-          </button>
+          </Link>
         </div>
       </div>
       <Team />

@@ -3,6 +3,7 @@ import temp_header from "../assets/images/home_page/header/temp_header_image_2.p
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SuggestedMeal from "./SuggestedMeal";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -43,9 +44,12 @@ const Header = () => {
           </div>
 
           <div className="flex flex-col items-center gap-10 mx-4 lg:gap-20 lg:flex-row">
-            <button className="w-full px-8 py-4 text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700">
+            <Link
+              to="/shop"
+              className="w-full px-8 py-4 text-white duration-200 bg-primary-500 rounded-xl hover:bg-primary-700"
+            >
               Order Now
-            </button>
+            </Link>
             <button className="flex flex-row-reverse items-center justify-center w-full gap-6 p-2 font-bold duration-300 border border-yellow-400 border-solid rounded-lg lg:border-transparent hover:border-yellow-400">
               Order Process
               <div className="p-6 bg-white rounded-full">

@@ -6,6 +6,7 @@ import backgroundThree from "../assets/images/home_page/OrganicFoodFeature/bg_th
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 const foodFeatures = [
   {
@@ -82,9 +83,12 @@ const OrganicFoodFeature = () => {
             100% Trusted Organic Food Store
           </h2>
           {ourFeatures}
-          <button className="flex items-center justify-center w-full gap-4 px-6 py-4 text-white duration-200 rounded-full lg:w-fit lg:px-12 bg-primary-500 hover:bg-primary-700">
+          <Link
+            to="/shop"
+            className="flex items-center justify-center w-full gap-4 px-6 py-4 text-white duration-200 rounded-full lg:w-fit lg:px-12 bg-primary-500 hover:bg-primary-700"
+          >
             Shop Now <FontAwesomeIcon icon={faArrowRight} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

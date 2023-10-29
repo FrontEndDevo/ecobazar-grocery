@@ -60,9 +60,12 @@ const RestaurantsList = () => {
             <p className="relative px-4 my-6 lg:my-12 text-xl lg:text-4xl uppercase text-main-100 before:absolute before:bg-green-400 before:top-0 before:left-0 before:w-1 before:rounded-full before:h-[130%]">
               Sale Up to <span className="text-white">48%</span> off
             </p>
-            <button className="flex items-center justify-center gap-4 px-6 py-4 text-white duration-200 rounded-full lg:px-12 bg-primary-500 hover:bg-primary-700">
+            <Link
+              to="/shop"
+              className="flex items-center justify-center gap-4 px-6 py-4 text-white duration-200 rounded-full lg:px-12 bg-primary-500 hover:bg-primary-700"
+            >
               Shop Now <FontAwesomeIcon icon={faArrowRight} />
-            </button>
+            </Link>
           </div>
         </div>
         <aside className="bg-white border-2 basis-1/6">
