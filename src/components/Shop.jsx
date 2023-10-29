@@ -1,8 +1,15 @@
-import { faFilter, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faFilter,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import ShopFilter from "./ShopFilter";
 import { useState } from "react";
+import shopBackground from "../assets/images/shop/shop_background.webp";
+import Advantages from "./Advantages";
+import { Link } from "react-router-dom";
 
 const Shop = ({ error }) => {
   const [openFilters, setOpenFilters] = useState(false);
@@ -91,54 +98,87 @@ const Shop = ({ error }) => {
   };
 
   return (
-    <section className="text-center lg:text-start py-60 lg:py-24">
+    <section className="py-48 text-center lg:text-start lg:py-24">
       <div className="container">
-        <h2 className="pb-4 mx-auto mb-10 text-3xl font-bold border-b-4 lg:text-5xl rounded-xl border-primary-500 w-fit text-main-700">
-          Featured Meals
-        </h2>
-
-        {error && (
-          <p className="text-xl font-bold text-center text-red-600">
-            oops..Something went wrong!
-          </p>
-        )}
-
-        {neededMeals.length == 0 && !error && (
-          <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
-            <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading Meals...
-          </p>
-        )}
-
-        {neededMeals.length != 0 && !error && (
-          <div>
-            <p className="mb-4 text-base italic font-bold text-main-700">
-              Available meals &lt;
-              <span className="text-xl text-orange-600">
-                {" "}
-                {neededMeals.length}{" "}
-              </span>
-              &gt;
+        <div className="relative mb-20 text-start">
+          <img
+            src={shopBackground}
+            alt="Fresh and Healthy Food"
+            className="w-full rounded-xl h-96 lg:h-screen"
+          />
+          <div className="absolute top-0 left-0 p-4 lg:w-1/2 lg:left-20 lg:top-1/4">
+            <h6 className="mb-4 font-bold text-green-600 uppercase">
+              Welcome to Ezobazar shop
+            </h6>
+            <h2 className="text-lg font-bold text-main-700 lg:text-5xl xl:text-7xl">
+              Fresh & Healthy Organic Food
+            </h2>
+            <p className="relative my-6 mb-32 text-base uppercase lg:pr-4 lg:my-12 lg:text-4xl text-main-700">
+              Sale up to <span className="text-orange-600">30% OFF</span>
             </p>
-            <div className="flex items-center justify-between">
-              <h2
-                onClick={toggleFiltersHandler}
-                className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
-              >
-                <FontAwesomeIcon icon={faFilter} /> Filter
-              </h2>
-              <button
-                onClick={resetFilteredMealsHandler}
-                className="p-1 text-sm font-bold text-white duration-200 bg-red-600 rounded-sm hover:bg-red-800"
-              >
-                Reset
-              </button>
-            </div>
-            <div className="flex flex-col gap-4 md:flex-row">
-              {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
-              {allRenderedMeals}
-            </div>
+            <p className="mb-4 lg:mb-10 text-main-500 xl:text-main-100">
+              Free shipping on all your order. we deliver, you enjoy
+            </p>
+            <Link
+              to="/shop"
+              className="flex items-center justify-center gap-4 px-6 py-4 text-white duration-200 rounded-full w-fit lg:px-12 bg-primary-500 hover:bg-primary-700"
+            >
+              Shop Now <FontAwesomeIcon icon={faArrowRight} />
+            </Link>
           </div>
-        )}
+          <Advantages />
+        </div>
+
+        <div>
+          <h2 className="pb-4 mx-auto mb-10 text-3xl font-bold border-b-4 lg:text-5xl rounded-xl border-primary-500 w-fit text-main-700">
+            Featured Meals
+          </h2>
+
+          {error && (
+            <p className="text-xl font-bold text-center text-red-600">
+              oops..Something went wrong!
+            </p>
+          )}
+
+          {neededMeals.length == 0 && !error && (
+            <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
+              <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading Meals...
+            </p>
+          )}
+
+          {neededMeals.length != 0 && !error && (
+            <div>
+              <p className="mb-4 text-base italic font-bold text-main-700">
+                Available meals &lt;
+                <span className="text-xl text-orange-600">
+                  {" "}
+                  {neededMeals.length}{" "}
+                </span>
+                &gt;
+              </p>
+              <div className="flex items-center justify-between">
+                <h2
+                  onClick={toggleFiltersHandler}
+                  className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
+                >
+                  <FontAwesomeIcon icon={faFilter} /> Filter
+                </h2>
+                <button
+                  onClick={resetFilteredMealsHandler}
+                  className="p-1 text-sm font-bold text-white duration-200 bg-red-600 rounded-sm hover:bg-red-800"
+                >
+                  Reset
+                </button>
+              </div>
+              <div className="flex flex-col gap-4 md:flex-row">
+                {openFilters && (
+                  <ShopFilter getFilters={getUserFiltersHandler} />
+                )}
+                {allRenderedMeals}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
