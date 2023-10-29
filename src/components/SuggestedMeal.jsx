@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 const SuggestedMeal = () => {
   return (
-    <div className="relative px-4 py-6 text-center duration-300 bg-white cursor-pointer lg:px-8 animate-bounce lg:animate-none hover:animate-none rounded-xl hover:-translate-y-4">
+    <div className="relative px-4 py-6 text-center duration-300 bg-white cursor-pointer lg:px-8 animate-bounce hover:animate-none rounded-xl">
       <div className="capitalize">
         <h3 className="mb-2 text-lg font-bold text-main-700">Melting Cheese</h3>
         <h6 className="text-xs text-main-500">Red Stovery</h6>

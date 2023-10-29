@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 const SuggestedProduct = () => {
   return (
-    <div className="relative px-8 py-4 text-center duration-300 bg-white cursor-pointer hover:animate-none animate-bounce lg:animate-none lg:px-8 lg:pt-8 lg:pb-12 rounded-xl hover:-translate-y-4">
+    <div className="relative px-8 py-4 text-center duration-300 bg-white cursor-pointer animate-bounce lg:px-8 lg:pt-8 lg:pb-12 rounded-xl hover:animate-none">
       <img
         src={tempImg}
         alt="temp image"
