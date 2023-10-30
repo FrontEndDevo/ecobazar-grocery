@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 import MealsCategories from "../components/MealsCategories";
 import Statistics from "../components/Statistics";
 import OrganicFoodFeature from "../components/OrganicFoodFeature";
+import FoodProducts from "../components/FoodProducts";
 
 const HomePage = () => {
   return (
@@ -19,6 +20,7 @@ const HomePage = () => {
       <MealsCategories />
       <Statistics />
       <OrganicFoodFeature />
+      <FoodProducts />
       <Footer />
     </>
   );
