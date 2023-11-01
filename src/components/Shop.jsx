@@ -10,10 +10,15 @@ import { useState } from "react";
 import shopBackground from "../assets/images/shop/shop_background.webp";
 import Advantages from "./Advantages";
 import { Link } from "react-router-dom";
+import ShopPagination from "./ShopPagination";
 
 const Shop = ({ error }) => {
   const [openFilters, setOpenFilters] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
+  const [paginationIndices, setPaginationIndices] = useState({
+    start: 0,
+    end: 10,
+  });
   // Get all meals from Redux store.
   const meals = [];
   const storedMeals = useSelector((state) => state.meals);
@@ -53,41 +58,48 @@ const Shop = ({ error }) => {
   const neededMeals = filteredMeals.length != 0 ? filteredMeals : meals;
   const allRenderedMeals = (
     <ul className="flex flex-wrap items-center justify-center gap-6">
-      {neededMeals.map((meal, index) => {
-        const mealName =
-          meal.strMeal.length > 20
-            ? meal.strMeal.slice(0, 20) + "..."
-            : meal.strMeal;
+      {neededMeals
+        .slice(paginationIndices.start, paginationIndices.end)
+        .map((meal, index) => {
+          const mealName =
+            meal.strMeal.length > 20
+              ? meal.strMeal.slice(0, 20) + "..."
+              : meal.strMeal;
 
-        return (
-          <li
-            key={index}
-            className="relative w-[300px] h-fit border-2 rounded-lg"
-          >
-            <img
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-              className="w-full rounded-t-lg h-2/3"
-            />
-            <div className="flex justify-between gap-2 px-2 py-2">
-              <div>
+          return (
+            <li
+              key={index}
+              className="relative w-[300px] h-fit border-2 rounded-lg"
+            >
+              <img
+                src={meal.strMealThumb}
+                alt={meal.strMeal}
+                className="w-full rounded-t-lg h-2/3"
+              />
+              <div className="flex justify-between gap-2 px-2 py-2">
                 <div>
-                  <h3 className="mb-4 text-lg font-bold">{mealName}</h3>
-                  <h4 className="text-base text-orange-600">{meal.strArea}</h4>
+                  <div>
+                    <h3 className="mb-4 text-lg font-bold">{mealName}</h3>
+                    <h4 className="text-base text-orange-600">
+                      {meal.strArea}
+                    </h4>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <span className="font-bold text-green-800">
+                    ${meal.price}
+                  </span>
+                  <button className="px-3 py-1 text-2xl text-white duration-100 bg-green-500 rounded-full hover:-translate-y-2">
+                    +
+                  </button>
                 </div>
               </div>
-              <div className="flex flex-col items-center justify-center gap-2">
-                <span className="font-bold text-green-800">${meal.price}</span>
-                <button className="px-3 py-1 text-2xl text-white duration-100 bg-green-500 rounded-full hover:-translate-y-2">
-                  +
-                </button>
-              </div>
-            </div>
-          </li>
-        );
-      })}
+            </li>
+          );
+        })}
     </ul>
   );
+
   // show and hide filters component.
   const toggleFiltersHandler = () => {
     setOpenFilters((prevState) => !prevState);
@@ -95,6 +107,23 @@ const Shop = ({ error }) => {
 
   const resetFilteredMealsHandler = () => {
     setFilteredMeals([]);
+  };
+
+  // These coming codes are for ShopPagination component:
+
+  // Number of products we want to show per page:
+  const productsPerPage = 10;
+
+  // Calculate the total pages (10 products):
+  const totalPages = Math.ceil(neededMeals.length / productsPerPage);
+
+  // Store current page (start & end indices).
+  const getCurrentPageHandler = (cur) => {
+    // Calc the first and last product index that should be rendered.
+    const startIndex = (cur - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+
+    setPaginationIndices({ start: startIndex, end: endIndex });
   };
 
   return (
@@ -174,8 +203,15 @@ const Shop = ({ error }) => {
                 {openFilters && (
                   <ShopFilter getFilters={getUserFiltersHandler} />
                 )}
+
                 {allRenderedMeals}
               </div>
+              <ShopPagination
+                products={neededMeals}
+                totalPaginationPages={totalPages}
+                getCurrentPage={getCurrentPageHandler}
+                paginationIndices={paginationIndices}
+              />
             </div>
           )}
         </div>
