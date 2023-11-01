@@ -3,11 +3,11 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const ShopPagination = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
-
+  const pageNumberRef = useRef();
   // Pagination elements classes to keep JSX lean.
   const pageNumberClasses =
     "relative inline-flex items-center p-2 mx-1 text-sm font-bold text-indigo-600 duration-300 rounded-lg hover:bg-indigo-600 hover:text-white";
@@ -17,8 +17,8 @@ const ShopPagination = (props) => {
 
   // Send back the page index to change the products when click a page number:
   const changePageHandler = (pageIndex) => {
-    // To color the current page number in JSX below.
     setCurrentPage(pageIndex);
+
     // Send page number to parent component.
     props.getCurrentPage(pageIndex);
   };
@@ -61,6 +61,16 @@ const ShopPagination = (props) => {
         </button>
       ));
 
+  const submitPageNumberHandler = (e) => {
+    e.preventDefault();
+    const pageNumInput = +pageNumberRef.current.value;
+
+    if (pageNumInput >= 1 && pageNumInput <= props.totalPaginationPages) {
+      setCurrentPage(pageNumInput);
+      props.getCurrentPage(pageNumInput);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-between flex-1 gap-4 mx-2 mt-8 md:flex-row">
       <div className="text-sm text-center text-gray-700">
@@ -75,42 +85,66 @@ const ShopPagination = (props) => {
         </p>
       </div>
 
-      <div className="flex">
-        <button disabled={currentPage == 1} className={prevNextBtnsClasses}>
-          <FontAwesomeIcon onClick={previousPageHandler} icon={faChevronLeft} />
-        </button>
-
-        <div>
-          <button
-            onClick={() => changePageHandler(1)}
-            className={pageNumberClasses}
-            page-number={1}
-          >
-            1
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex">
+          <button disabled={currentPage == 1} className={prevNextBtnsClasses}>
+            <FontAwesomeIcon
+              onClick={previousPageHandler}
+              icon={faChevronLeft}
+            />
           </button>
-          {currentPage + 1 != 2 && (
-            <span className="text-2xl text-main-700">...</span>
-          )}
-          {renderedPagesBeforeDots}
-          {renderedPagesAfterDots}
-          {currentPage - 1 != props.totalPaginationPages - 1 && (
-            <span className="text-2xl text-main-700">...</span>
-          )}
+
+          <div>
+            <button
+              onClick={() => changePageHandler(1)}
+              className={pageNumberClasses}
+              page-number={1}
+            >
+              1
+            </button>
+            {currentPage + 1 != 2 && (
+              <span className="text-2xl text-main-700">...</span>
+            )}
+            {renderedPagesBeforeDots}
+            {renderedPagesAfterDots}
+            {currentPage - 1 != props.totalPaginationPages - 1 && (
+              <span className="text-2xl text-main-700">...</span>
+            )}
+            <button
+              onClick={() => changePageHandler(props.totalPaginationPages)}
+              className={pageNumberClasses}
+              page-number={props.totalPaginationPages}
+            >
+              {props.totalPaginationPages}
+            </button>
+          </div>
+
           <button
-            onClick={() => changePageHandler(props.totalPaginationPages)}
-            className={pageNumberClasses}
-            page-number={props.totalPaginationPages}
+            disabled={currentPage == props.totalPaginationPages}
+            className={prevNextBtnsClasses}
           >
-            {props.totalPaginationPages}
+            <FontAwesomeIcon onClick={nextPageHandler} icon={faChevronRight} />
           </button>
         </div>
 
-        <button
-          disabled={currentPage == props.totalPaginationPages}
-          className={prevNextBtnsClasses}
-        >
-          <FontAwesomeIcon onClick={nextPageHandler} icon={faChevronRight} />
-        </button>
+        <div className="flex items-center gap-4">
+          <p className="text-sm text-gray-700">Go to page</p>
+          <form onSubmit={submitPageNumberHandler}>
+            <input
+              type="number"
+              name="page-number"
+              id="number"
+              min={1}
+              ref={pageNumberRef}
+              max={props.totalPaginationPages}
+              defaultValue={currentPage}
+              className="h-10 p-2 font-bold text-center border border-indigo-600 rounded w-14 text-main-700 focus:outline-none"
+            />
+            <button className="px-10 py-2 ml-4 font-bold text-white duration-200 bg-indigo-600 border-none rounded outline-none hover:bg-indigo-800">
+              Go
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
