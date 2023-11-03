@@ -8,6 +8,7 @@ import MealsCategories from "../components/MealsCategories";
 import Statistics from "../components/Statistics";
 import OrganicFoodFeature from "../components/OrganicFoodFeature";
 import FoodProducts from "../components/FoodProducts";
+import DeliciousMeals from "../components/DeliciousMeals";
 
 const HomePage = () => {
   return (
@@ -15,6 +16,7 @@ const HomePage = () => {
       <Navbar />
       <Header />
       <Benefits />
+      <DeliciousMeals />
       <WhyChooseUs />
       <Delivery />
       <MealsCategories />
