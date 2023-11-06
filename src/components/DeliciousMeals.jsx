@@ -43,27 +43,29 @@ const settings = {
 
 const DeliciousMeals = () => {
   const [error, setError] = useState(false);
-
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchDeliciousMeals = async () => {
-      await axios
-        .get(import.meta.env.VITE_DELICIOUS_MEALS)
-        .then((data) => {
-          dispatch(deliciousMealsActions.addDeliciousMeals(data.data.meals));
-          setError(false);
-        })
-        .catch(() => {
-          setError(true);
-        });
-    };
-    fetchDeliciousMeals();
-  }, []);
 
   const deliciousMealsFromReduxStore = useSelector(
     (state) => state.deliciousMelas.deliciousMeals
   );
+
+  useEffect(() => {
+    // Check first if the (Delicious Meals) are exist or not.
+    if (deliciousMealsFromReduxStore.length == 0) {
+      const fetchDeliciousMeals = async () => {
+        await axios
+          .get(import.meta.env.VITE_DELICIOUS_MEALS)
+          .then((data) => {
+            dispatch(deliciousMealsActions.addDeliciousMeals(data.data.meals));
+            setError(false);
+          })
+          .catch(() => {
+            setError(true);
+          });
+      };
+      fetchDeliciousMeals();
+    }
+  }, [deliciousMealsFromReduxStore]);
 
   const renderAllDeliciousMeals = (
     <ul>
