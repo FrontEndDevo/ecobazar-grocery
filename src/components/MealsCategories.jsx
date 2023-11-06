@@ -39,30 +39,31 @@ const settings = {
 
 const MealsCategories = () => {
   const [error, setError] = useState(false);
-
   const dispatch = useDispatch();
-
-  // Fetch the meals categories from (TheMealDB) website.
-  useEffect(() => {
-    const fetchMealsCategories = async () => {
-      await axios
-        .get(import.meta.env.VITE_LATEST_MEALS_CATEGORIES)
-        .then((data) => {
-          dispatch(
-            mealsCategoriesActions.addMealsCategories(data.data.categories)
-          );
-          setError(false);
-        })
-        .catch((err) => {
-          setError(true);
-        });
-    };
-    fetchMealsCategories();
-  }, []);
 
   const mealsCategories = useSelector(
     (state) => state.mealsCategories.mealsCategories
   );
+
+  // Fetch the meals categories from (TheMealDB) website.
+  useEffect(() => {
+    if (mealsCategories.length == 0) {
+      const fetchMealsCategories = async () => {
+        await axios
+          .get(import.meta.env.VITE_LATEST_MEALS_CATEGORIES)
+          .then((data) => {
+            dispatch(
+              mealsCategoriesActions.addMealsCategories(data.data.categories)
+            );
+            setError(false);
+          })
+          .catch((err) => {
+            setError(true);
+          });
+      };
+      fetchMealsCategories();
+    }
+  }, [mealsCategories]);
 
   return (
     <section className="py-20 bg-slate-50">
