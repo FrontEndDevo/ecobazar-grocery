@@ -2,11 +2,45 @@ import { faArrowRight, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
+import { mealsCategoriesActions } from "../redux/slices/mealsCategoriesSlice";
+
+const settings = {
+  arrows: false,
+  dots: true,
+  infinite: true,
+  speed: 500,
+  autoplay: true,
+  autoplaySpeed: 2000,
+  pauseOnHover: true,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 2,
+      },
+    },
+  ],
+};
 
 const MealsCategories = () => {
-  const [mealsCategories, setMealsCategories] = useState([]);
   const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
 
   // Fetch the meals categories from (TheMealDB) website.
   useEffect(() => {
@@ -14,7 +48,9 @@ const MealsCategories = () => {
       await axios
         .get(import.meta.env.VITE_LATEST_MEALS_CATEGORIES)
         .then((data) => {
-          setMealsCategories(data?.data.categories);
+          dispatch(
+            mealsCategoriesActions.addMealsCategories(data.data.categories)
+          );
           setError(false);
         })
         .catch((err) => {
@@ -24,36 +60,9 @@ const MealsCategories = () => {
     fetchMealsCategories();
   }, []);
 
-  const settings = {
-    arrows: false,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-    ],
-  };
+  const mealsCategories = useSelector(
+    (state) => state.mealsCategories.mealsCategories
+  );
 
   return (
     <section className="py-20 bg-slate-50">
