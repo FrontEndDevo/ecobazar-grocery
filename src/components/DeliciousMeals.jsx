@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { deliciousMealsActions } from "../redux/slices/deliciousMealsSlice";
 
 const settings = {
   className: "center",
@@ -40,15 +42,16 @@ const settings = {
 };
 
 const DeliciousMeals = () => {
-  const [deliciousMeals, setDeliciousMeals] = useState([]);
   const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchDeliciousMeals = async () => {
       await axios
         .get(import.meta.env.VITE_DELICIOUS_MEALS)
         .then((data) => {
-          setDeliciousMeals(data.data.meals);
+          dispatch(deliciousMealsActions.addDeliciousMeals(data.data.meals));
           setError(false);
         })
         .catch(() => {
@@ -58,10 +61,14 @@ const DeliciousMeals = () => {
     fetchDeliciousMeals();
   }, []);
 
+  const deliciousMealsFromReduxStore = useSelector(
+    (state) => state.deliciousMelas.deliciousMeals
+  );
+
   const renderAllDeliciousMeals = (
     <ul>
       <Slider {...settings}>
-        {deliciousMeals.map((meal, i) => (
+        {deliciousMealsFromReduxStore.map((meal, i) => (
           <li
             key={i}
             className="text-center bg-white border-2 rounded-t-lg outline-none border-primary-100"
@@ -102,7 +109,7 @@ const DeliciousMeals = () => {
             oops..Something went wrong!
           </p>
         )}
-        {deliciousMeals.length == 0 && !error && (
+        {deliciousMealsFromReduxStore.length == 0 && !error && (
           <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
             <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading...
           </p>
@@ -115,7 +122,9 @@ const DeliciousMeals = () => {
             shop now
           </Link>
         </div>
-        {!error && deliciousMeals.length != 0 && renderAllDeliciousMeals}
+        {!error &&
+          deliciousMealsFromReduxStore.length != 0 &&
+          renderAllDeliciousMeals}
       </div>
     </section>
   );
