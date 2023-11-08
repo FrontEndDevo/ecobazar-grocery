@@ -5,7 +5,7 @@ const RestaurantsPage = () => {
   return (
     <>
       <Navbar />
-      <main className="py-60 lg:pt-28 lg:pb-12 bg-slate-50">
+      <main className="pb-20 pt-60 lg:pt-28 lg:pb-12 bg-slate-50">
         <RestaurantsList />
       </main>
       ;

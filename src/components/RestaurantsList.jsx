@@ -47,7 +47,11 @@ const RestaurantsList = () => {
   return (
     <div className="mx-6 lg:mx-8">
       <div className="flex flex-col gap-8 lg:flex-row-reverse">
-        <div className="relative basis-5/6">
+        <div
+          className={`relative ${
+            restaurants.length != 0 ? "basis-5/6" : "basis-full"
+          }`}
+        >
           <img
             src={rest_bg}
             alt="Fresh & Health Organic Food Image"
@@ -68,9 +72,11 @@ const RestaurantsList = () => {
             </Link>
           </div>
         </div>
-        <aside className="bg-white border-2 basis-1/6">
-          {groverRestaurants}
-        </aside>
+        {restaurants.length != 0 && (
+          <aside className="bg-white border-2 basis-1/6">
+            {groverRestaurants}
+          </aside>
+        )}
       </div>
       <Advantages />
     </div>
