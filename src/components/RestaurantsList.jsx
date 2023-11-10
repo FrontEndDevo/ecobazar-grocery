@@ -6,23 +6,23 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Advantages from "./Advantages";
 
+const restaurantsSettings = {
+  arrows: true,
+  dots: false,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 16,
+  slidesToScroll: 1,
+  vertical: true,
+  verticalSwiping: true,
+  speed: 500,
+  autoplay: true,
+  autoplaySpeed: 1500,
+  pauseOnHover: true,
+};
+
 const RestaurantsList = () => {
   const restaurants = useSelector((state) => state.restaurants.restaurants);
-
-  const restaurantsSettings = {
-    arrows: true,
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 16,
-    slidesToScroll: 1,
-    vertical: true,
-    verticalSwiping: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 1500,
-    pauseOnHover: true,
-  };
 
   const groverRestaurants = (
     <ul className="grid grid-cols-1 gap-2 lg:flex-col lg:flex">
