@@ -46,7 +46,7 @@ const DeliciousMeals = () => {
   const dispatch = useDispatch();
 
   const deliciousMealsFromReduxStore = useSelector(
-    (state) => state.deliciousMelas.deliciousMeals
+    (state) => state.deliciousMeals.deliciousMeals
   );
 
   useEffect(() => {
