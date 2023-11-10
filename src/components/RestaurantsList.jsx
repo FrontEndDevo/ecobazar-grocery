@@ -3,8 +3,12 @@ import Slider from "react-slick";
 import rest_bg from "../assets/images/restaurants/restaurants_list.webp";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Advantages from "./Advantages";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { useEffect } from "react";
+import { restaurantsActions } from "../redux/slices/restaurantsSlice";
 
 const restaurantsSettings = {
   arrows: true,
@@ -23,6 +27,27 @@ const restaurantsSettings = {
 
 const RestaurantsList = () => {
   const restaurants = useSelector((state) => state.restaurants.restaurants);
+
+  const dispatch = useDispatch();
+
+  // Fetch "Restaurants collections" from Firebase DB then store it in Redux store.
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      // Store the Restaurants.
+      const querySnapshot = await getDocs(collection(db, "restaurants"));
+
+      querySnapshot.forEach((doc) => {
+        dispatch(
+          restaurantsActions.addRestaurant({
+            restaurant: doc.data().restaurant,
+            foodItems: doc.data().foodItems,
+          })
+        );
+      });
+    };
+
+    fetchRestaurants();
+  }, []);
 
   const groverRestaurants = (
     <ul className="grid grid-cols-1 gap-2 lg:flex-col lg:flex">
