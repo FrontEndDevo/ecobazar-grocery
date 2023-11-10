@@ -30,13 +30,13 @@ const RestaurantsList = () => {
 
   const dispatch = useDispatch();
 
-  // Fetch "Restaurants collections" from Firebase DB then store it in Redux store.
+  // Fetch "Restaurants collection" from Firebase DB then store it in Redux store.
   useEffect(() => {
     const fetchRestaurants = async () => {
-      // Store the Restaurants.
       const querySnapshot = await getDocs(collection(db, "restaurants"));
 
       querySnapshot.forEach((doc) => {
+        // Store the restaurants in a redux slice.
         dispatch(
           restaurantsActions.addRestaurant({
             restaurant: doc.data().restaurant,
