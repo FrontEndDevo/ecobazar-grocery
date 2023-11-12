@@ -1,4 +1,10 @@
+import { collection, getDocs } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fruitsActions } from "../redux/slices/fruitsSlice";
+import { vegetablesActions } from "../redux/slices/vegetablesSlice";
+import { useEffect } from "react";
+import { db } from "../config/firebase";
 
 const kindsOfProducts = [
   "vegetable",
@@ -8,14 +14,52 @@ const kindsOfProducts = [
   "view all",
 ];
 const AllProducts = () => {
+  const fruits = useSelector((state) => state.fruits);
+  const vegetables = useSelector((state) => state.vegetables);
+
+  const dispatch = useDispatch();
+
+  // Fetch "Fruits collection" from Firebase DB then store it in Redux store.
+  useEffect(() => {
+    const fetchFruits = async () => {
+      const querySnapshot = await getDocs(collection(db, "fruits"));
+      querySnapshot.forEach((doc) => {
+        // Store the fruits in a redux slice.
+        dispatch(
+          fruitsActions.addNewFruit({
+            fruitName: doc.data().name,
+            fruitDetails: doc.data(),
+          })
+        );
+      });
+    };
+
+    fetchFruits();
+
+    // Fetch "Vegetables collection" from Firebase DB then store it in Redux store.
+    const fetchVegetables = async () => {
+      const querySnapshot = await getDocs(collection(db, "vegetables"));
+      querySnapshot.forEach((doc) => {
+        // Store the vegetables in a redux slice.
+        dispatch(
+          vegetablesActions.addNewVegetable({
+            vegetablesName: doc.data().name,
+            vegetablesDetails: doc.data(),
+          })
+        );
+      });
+    };
+
+    fetchVegetables();
+  }, []);
+
   const allKindsOfProducts = (
     <ul className="flex items-center justify-center gap-10">
       {kindsOfProducts.map((item, i) => (
-        <li
-          key={i}
-          className="text-lg capitalize duration-300 text-main-100 hover:text-green-700"
-        >
-          <Link>{item}</Link>
+        <li key={i}>
+          <button className="text-lg capitalize duration-300 text-main-100 hover:text-green-700">
+            {item}
+          </button>
         </li>
       ))}
     </ul>
