@@ -19,38 +19,42 @@ const AllProducts = () => {
 
   const dispatch = useDispatch();
 
-  // Fetch "Fruits collection" from Firebase DB then store it in Redux store.
   useEffect(() => {
-    const fetchFruits = async () => {
-      const querySnapshot = await getDocs(collection(db, "fruits"));
-      querySnapshot.forEach((doc) => {
-        // Store the fruits in a redux slice.
-        dispatch(
-          fruitsActions.addNewFruit({
-            fruitName: doc.data().name,
-            fruitDetails: doc.data(),
-          })
-        );
-      });
-    };
+    if (fruits.length == 0) {
+      // Fetch "Fruits collection" from Firebase DB then store it in Redux store.
+      const fetchFruits = async () => {
+        const querySnapshot = await getDocs(collection(db, "fruits"));
+        querySnapshot.forEach((doc) => {
+          // Store the fruits in a redux slice.
+          dispatch(
+            fruitsActions.addNewFruit({
+              fruitName: doc.data().name,
+              fruitDetails: doc.data(),
+            })
+          );
+        });
+      };
 
-    fetchFruits();
+      fetchFruits();
+    }
 
-    // Fetch "Vegetables collection" from Firebase DB then store it in Redux store.
-    const fetchVegetables = async () => {
-      const querySnapshot = await getDocs(collection(db, "vegetables"));
-      querySnapshot.forEach((doc) => {
-        // Store the vegetables in a redux slice.
-        dispatch(
-          vegetablesActions.addNewVegetable({
-            vegetablesName: doc.data().name,
-            vegetablesDetails: doc.data(),
-          })
-        );
-      });
-    };
+    if (vegetables.length == 0) {
+      // Fetch "Vegetables collection" from Firebase DB then store it in Redux store.
+      const fetchVegetables = async () => {
+        const querySnapshot = await getDocs(collection(db, "vegetables"));
+        querySnapshot.forEach((doc) => {
+          // Store the vegetables in a redux slice.
+          dispatch(
+            vegetablesActions.addNewVegetable({
+              vegetablesName: doc.data().name,
+              vegetablesDetails: doc.data(),
+            })
+          );
+        });
+      };
 
-    fetchVegetables();
+      fetchVegetables();
+    }
   }, []);
 
   const allKindsOfProducts = (
