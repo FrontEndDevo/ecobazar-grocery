@@ -12,7 +12,10 @@ export const vegetablesSlice = createSlice({
     addNewVegetable: (state, action) => {
       const newVegetables = {
         vegetablesName: action.payload.vegetablesName,
-        vegetablesDetails: action.payload.vegetablesDetails,
+        vegetablesDetails: {
+          ...action.payload.vegetablesDetails,
+          price: Math.ceil(Math.random() * 100),
+        },
       };
       state.vegetables.push(newVegetables);
       ++state.totalVegetables;

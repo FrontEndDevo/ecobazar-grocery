@@ -12,7 +12,10 @@ export const fruitsSlice = createSlice({
     addNewFruit: (state, action) => {
       const newFruit = {
         fruitName: action.payload.fruitName,
-        fruitDetails: action.payload.fruitDetails,
+        fruitDetails: {
+          ...action.payload.fruitDetails,
+          price: Math.ceil(Math.random() * 100),
+        },
       };
       state.fruits.push(newFruit);
       ++state.totalFruits;

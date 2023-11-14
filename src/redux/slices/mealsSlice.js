@@ -20,7 +20,7 @@ export const mealsSlice = createSlice({
       if (filteredMealType.length == 0) {
         // Add (price) property to each meal then create a newMeal obj.
         const mealsWithPrice = action.payload.meals.map((meal) => {
-          return { ...meal, price: (Math.random() * 100).toFixed(2) };
+          return { ...meal, price: Math.ceil(Math.random() * 100) };
         });
 
         const newMeal = {
