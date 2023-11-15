@@ -9,7 +9,7 @@ import Statistics from "../components/Statistics";
 import OrganicFoodFeature from "../components/OrganicFoodFeature";
 import FoodProducts from "../components/FoodProducts";
 import DeliciousMeals from "../components/DeliciousMeals";
-import AllProducts from "../components/AllProducts";
+import AllProducts from "../components/AllProducts/AllProducts";
 
 const HomePage = () => {
   return (

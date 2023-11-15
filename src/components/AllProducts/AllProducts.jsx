@@ -1,24 +1,27 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
+import { fruitsActions } from "../../redux/slices/fruitsSlice";
+import { vegetablesActions } from "../../redux/slices/vegetablesSlice";
+import { useEffect, useState } from "react";
+import { db } from "../../config/firebase";
+import RenderedProducts from "./RenderedProducts";
 import { Link } from "react-router-dom";
-import { fruitsActions } from "../redux/slices/fruitsSlice";
-import { vegetablesActions } from "../redux/slices/vegetablesSlice";
-import { useEffect } from "react";
-import { db } from "../config/firebase";
 
-const kindsOfProducts = [
-  "vegetable",
-  "fruit",
-  "meat & fish",
-  "drinks",
-  "view all",
-];
 const AllProducts = () => {
-  const fruits = useSelector((state) => state.fruits);
-  const vegetables = useSelector((state) => state.vegetables);
+  const [currentKindOfProducts, setCurrentKindOfProducts] = useState(3);
+
+  const fruits = useSelector((state) => state.fruits.fruits);
+  const vegetables = useSelector((state) => state.vegetables.vegetables);
+  const deliciousMeals = useSelector(
+    (state) => state.deliciousMeals.deliciousMeals
+  );
+  const reduxMeals = useSelector((state) => state.meals.allMeals);
+  const meals = [];
+  reduxMeals.forEach((e) => e.meals.forEach((ele) => meals.push(ele)));
 
   const dispatch = useDispatch();
 
+  // Fetching all products if don't exist.
   useEffect(() => {
     if (fruits.length == 0) {
       // Fetch "Fruits collection" from Firebase DB then store it in Redux store.
@@ -57,17 +60,56 @@ const AllProducts = () => {
     }
   }, []);
 
+  const chooseTypeOfProductsHandler = (id) => {
+    setCurrentKindOfProducts(id);
+  };
+
+  // Prepare each kind of products (fruits, meals, ...etc):
+  const kindsOfProducts = [
+    {
+      id: 1,
+      type: "vegetable",
+      target: vegetables,
+    },
+    {
+      id: 2,
+      type: "fruit",
+      target: fruits,
+    },
+    {
+      id: 3,
+      type: "meat & fish",
+      target: [...meals, ...deliciousMeals],
+    },
+    {
+      id: 4,
+      type: "drinks",
+      target: [],
+    },
+  ];
+
+  const productsTypeClasses =
+    "text-base capitalize duration-300 font-bold text-main-100 hover:text-green-700";
+
   const allKindsOfProducts = (
     <ul className="flex items-center justify-center gap-10">
       {kindsOfProducts.map((item, i) => (
-        <li key={i}>
-          <button className="text-lg capitalize duration-300 text-main-100 hover:text-green-700">
-            {item}
+        <li key={i} onClick={() => chooseTypeOfProductsHandler(item.id)}>
+          <button
+            className={`${productsTypeClasses} ${
+              item.id == currentKindOfProducts ? "text-green-700" : ""
+            }`}
+          >
+            {item.type}
           </button>
         </li>
       ))}
+      <Link to="/shop" className={productsTypeClasses}>
+        view all
+      </Link>
     </ul>
   );
+
   return (
     <section className="py-20 bg-green-50">
       <div className="container">
@@ -77,6 +119,11 @@ const AllProducts = () => {
           </h2>
           {allKindsOfProducts}
         </div>
+        <RenderedProducts
+          productType={
+            kindsOfProducts.filter((obj) => obj.id == currentKindOfProducts)[0]
+          }
+        />
       </div>
     </section>
   );
