@@ -79,7 +79,7 @@ const AllProducts = () => {
     {
       id: 3,
       type: "meat & fish",
-      target: [...meals, ...deliciousMeals],
+      target: [...deliciousMeals], // because these will be fetched on this page.
     },
     {
       id: 4,
@@ -89,7 +89,7 @@ const AllProducts = () => {
   ];
 
   const productsTypeClasses =
-    "text-base capitalize duration-300 font-bold text-main-100 hover:text-green-700";
+    "text-base capitalize duration-300 font-bold hover:text-green-700";
 
   const allKindsOfProducts = (
     <ul className="flex items-center justify-center gap-10">
@@ -97,21 +97,24 @@ const AllProducts = () => {
         <li key={i} onClick={() => chooseTypeOfProductsHandler(item.id)}>
           <button
             className={`${productsTypeClasses} ${
-              item.id == currentKindOfProducts ? "text-green-700" : ""
+              item.id == currentKindOfProducts
+                ? "text-green-700"
+                : "text-main-100"
             }`}
           >
             {item.type}
           </button>
         </li>
       ))}
-      <Link to="/shop" className={productsTypeClasses}>
+      <Link to="/shop" className={`${productsTypeClasses} text-main-100`}>
         view all
       </Link>
     </ul>
   );
 
+  // Still fetching Drinks and find a solution for fruits array (no images).
   return (
-    <section className="py-20 bg-green-50">
+    <section className="py-20 bg-slate-50">
       <div className="container">
         <div className="text-center">
           <h2 className="mb-10 font-bold capitalize text-7xl">
