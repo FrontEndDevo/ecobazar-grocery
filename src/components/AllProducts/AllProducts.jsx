@@ -92,7 +92,7 @@ const AllProducts = () => {
     "text-base capitalize duration-300 font-bold hover:text-green-700";
 
   const allKindsOfProducts = (
-    <ul className="flex items-center justify-center gap-10">
+    <ul className="flex flex-wrap items-center justify-center gap-10">
       {kindsOfProducts.map((item, i) => (
         <li key={i} onClick={() => chooseTypeOfProductsHandler(item.id)}>
           <button
@@ -117,7 +117,7 @@ const AllProducts = () => {
     <section className="py-20 bg-slate-50">
       <div className="container">
         <div className="text-center">
-          <h2 className="mb-10 font-bold capitalize text-7xl">
+          <h2 className="mb-10 text-3xl font-bold capitalize lg:text-7xl">
             Introducing our products
           </h2>
           {allKindsOfProducts}

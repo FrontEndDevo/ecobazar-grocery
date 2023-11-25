@@ -65,7 +65,7 @@ const RenderedProducts = ({ productType }) => {
           </div>
         </div>
 
-        <div className="absolute flex items-end gap-4 mt-auto ml-auto text-2xl bottom-4 right-4">
+        <div className="absolute flex items-end gap-4 text-xl lg:text-2xl bottom-4 right-4">
           <FontAwesomeIcon
             icon={faBagShopping}
             className="mt-4 text-green-400 duration-200 cursor-pointer hover:text-green-800 hover:-translate-y-3"
@@ -83,7 +83,11 @@ const RenderedProducts = ({ productType }) => {
     );
   });
 
-  return <ul className="grid grid-cols-3 gap-6 mt-10">{renderedProducts}</ul>;
+  return (
+    <ul className="grid gap-2 mt-10 sm:grid-cols-1 md:gap-10 xl:grid-cols-3 md:grid-cols-2">
+      {renderedProducts}
+    </ul>
+  );
 };
 
 export default RenderedProducts;
