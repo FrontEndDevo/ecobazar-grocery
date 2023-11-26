@@ -8,7 +8,7 @@ import RenderedProducts from "./RenderedProducts";
 import { Link } from "react-router-dom";
 
 const AllProducts = () => {
-  const [currentKindOfProducts, setCurrentKindOfProducts] = useState(3);
+  const [currentKindOfProducts, setCurrentKindOfProducts] = useState(1);
 
   const fruits = useSelector((state) => state.fruits.fruits);
   const vegetables = useSelector((state) => state.vegetables.vegetables);
