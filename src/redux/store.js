@@ -5,6 +5,7 @@ import mealsSlice from "./slices/mealsSlice";
 import deliciousMealsSlice from "./slices/deliciousMealsSlice";
 import mealsCategoriesSlice from "./slices/mealsCategoriesSlice";
 import vegetablesSlice from "./slices/vegetablesSlice";
+import errorsSlice from "./slices/errorsSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   meals: mealsSlice,
   deliciousMeals: deliciousMealsSlice,
   mealsCategories: mealsCategoriesSlice,
+  errors: errorsSlice,
 });
 
 const persistConfig = {
