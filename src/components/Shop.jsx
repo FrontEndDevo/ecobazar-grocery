@@ -12,7 +12,7 @@ import Advantages from "./Advantages";
 import { Link } from "react-router-dom";
 import ShopPagination from "./ShopPagination";
 
-const Shop = ({ error }) => {
+const Shop = () => {
   const [openFilters, setOpenFilters] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [paginationIndices, setPaginationIndices] = useState({
@@ -25,6 +25,10 @@ const Shop = ({ error }) => {
   storedMeals.allMeals.forEach((e) =>
     e.meals.forEach((ele) => meals.push(ele))
   );
+
+  const mealsError = useSelector((state) => state.errors.allErrors).filter(
+    (item) => item.errorType == "meals"
+  )[0];
 
   // Get filters obj when user click "apply" btn and filter all meals.
   const getUserFiltersHandler = (filters) => {
@@ -163,19 +167,19 @@ const Shop = ({ error }) => {
             Featured Meals
           </h2>
 
-          {error && (
+          {mealsError && (
             <p className="text-xl font-bold text-center text-red-600">
-              oops..Something went wrong!
+              {mealsError.errorMessage}
             </p>
           )}
 
-          {neededMeals.length == 0 && !error && (
+          {neededMeals.length == 0 && !mealsError && (
             <p className="flex items-center justify-center gap-4 text-xl font-bold text-green-600">
               <FontAwesomeIcon icon={faSpinner} spinPulse /> Loading Meals...
             </p>
           )}
 
-          {neededMeals.length != 0 && !error && (
+          {neededMeals.length != 0 && !mealsError && (
             <div>
               <p className="mb-4 text-base italic font-bold text-main-700">
                 Available meals &lt;
