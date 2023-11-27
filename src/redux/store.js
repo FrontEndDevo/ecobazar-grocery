@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import restaurantsSlice from "./slices/restaurantsSlice";
 import fruitsSlice from "./slices/fruitsSlice";
 import mealsSlice from "./slices/mealsSlice";
+import drinksSlice from "./slices/drinksSlice";
 import deliciousMealsSlice from "./slices/deliciousMealsSlice";
 import mealsCategoriesSlice from "./slices/mealsCategoriesSlice";
 import vegetablesSlice from "./slices/vegetablesSlice";
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   fruits: fruitsSlice,
   vegetables: vegetablesSlice,
   meals: mealsSlice,
+  drinks: drinksSlice,
   deliciousMeals: deliciousMealsSlice,
   mealsCategories: mealsCategoriesSlice,
   errors: errorsSlice,
