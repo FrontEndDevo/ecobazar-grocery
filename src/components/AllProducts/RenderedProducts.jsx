@@ -14,7 +14,7 @@ const RenderedProducts = ({ productType }) => {
         : productType.id == 3 // Meals
         ? item.strMeal
         : productType.id == 4 // Drinks
-        ? ""
+        ? item.strDrink
         : null;
 
     const img =
@@ -25,7 +25,7 @@ const RenderedProducts = ({ productType }) => {
         : productType.id == 3 // Meals
         ? item.strMealThumb
         : productType.id == 4 // Drinks
-        ? ""
+        ? item.strDrinkThumb
         : null;
 
     const price =
@@ -36,7 +36,7 @@ const RenderedProducts = ({ productType }) => {
         : productType.id == 3 // Meals
         ? item.price
         : productType.id == 4 // Drinks
-        ? ""
+        ? item.price
         : null;
 
     return (
