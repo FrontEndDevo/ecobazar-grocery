@@ -11,14 +11,17 @@ const AllProducts = () => {
   const [currentKindOfProducts, setCurrentKindOfProducts] = useState(1);
 
   const fruits = useSelector((state) => state.fruits.fruits);
+
   const vegetables = useSelector((state) => state.vegetables.vegetables);
-  const deliciousMeals = useSelector(
-    (state) => state.deliciousMeals.deliciousMeals
-  );
+
+  // Extract all (meals & drinks) with all letters into single array:
+  const reduxMeals = useSelector((state) => state.meals.allMeals);
+  const meals = [];
+  reduxMeals.forEach((e) => e.meals.forEach((ele) => meals.push(ele)));
+
   const reduxDrinks = useSelector((state) => state.drinks.allDrinks);
   const drinks = [];
   reduxDrinks.forEach((e) => e.drinks.forEach((ele) => drinks.push(ele)));
-  console.log(drinks);
 
   const dispatch = useDispatch();
 
@@ -80,7 +83,7 @@ const AllProducts = () => {
     {
       id: 3,
       type: "meat & fish",
-      target: [...deliciousMeals], // because these will be fetched on this page.
+      target: meals, // because these will be fetched on this page.
     },
     {
       id: 4,
