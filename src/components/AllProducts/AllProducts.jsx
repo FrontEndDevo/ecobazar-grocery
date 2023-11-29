@@ -71,7 +71,6 @@ const AllProducts = () => {
     </ul>
   );
 
-  // Still fetching Drinks and find a solution for fruits array (no images).
   return (
     <section className="py-20 bg-slate-50">
       <div className="container">
