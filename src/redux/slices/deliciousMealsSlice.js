@@ -15,7 +15,7 @@ export const deliciousMealsSlice = createSlice({
       state.deliciousMeals = [...action.payload];
       state.totalNumOfDeliciousMeals = action.payload.length;
       for (let i = 0; i < state.deliciousMeals.length; i++) {
-        state.deliciousMeals[i].price = Math.ceil(Math.random() * 100);
+        state.deliciousMeals[i].price = Math.ceil(Math.random() * 200);
       }
     },
   },

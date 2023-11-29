@@ -14,7 +14,7 @@ export const fruitsSlice = createSlice({
         fruitName: action.payload.fruitName,
         fruitDetails: {
           ...action.payload.fruitDetails,
-          price: Math.ceil(Math.random() * 100),
+          price: Math.ceil(Math.random() * 50),
         },
       };
       state.fruits.push(newFruit);
