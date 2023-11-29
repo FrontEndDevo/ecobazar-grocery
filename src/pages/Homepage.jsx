@@ -15,18 +15,62 @@ import { useDispatch, useSelector } from "react-redux";
 import { mealsActions } from "../redux/slices/mealsSlice";
 import axios from "axios";
 import { drinksActions } from "../redux/slices/drinksSlice";
+import { collection, getDocs } from "firebase/firestore";
+import { fruitsActions } from "../redux/slices/fruitsSlice";
+import { vegetablesActions } from "../redux/slices/vegetablesSlice";
+import { db } from "../config/firebase";
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
+  const fruits = useSelector((state) => state.fruits.fruits);
+  const vegetables = useSelector((state) => state.vegetables.vegetables);
   const reduxMeals = useSelector((state) => state.meals);
   const reduxDrinks = useSelector((state) => state.drinks);
 
+  // Fetch all products from either Firebase or API:
   useEffect(() => {
+    // Fetch fruits from Firebase DB:
+    if (fruits.length == 0) {
+      const fetchFruits = async () => {
+        const querySnapshot = await getDocs(collection(db, "fruits"));
+        querySnapshot.forEach((doc) => {
+          // Store the fruits in a redux slice.
+          dispatch(
+            fruitsActions.addNewFruit({
+              fruitName: doc.data().name,
+              fruitDetails: doc.data(),
+            })
+          );
+        });
+      };
+
+      fetchFruits();
+    }
+
+    // Fetch vegetables from Firebase DB:
+    if (vegetables.length == 0) {
+      const fetchVegetables = async () => {
+        const querySnapshot = await getDocs(collection(db, "vegetables"));
+        querySnapshot.forEach((doc) => {
+          // Store the vegetables in a redux slice.
+          dispatch(
+            vegetablesActions.addNewVegetable({
+              vegetablesName: doc.data().name,
+              vegetablesDetails: doc.data(),
+            })
+          );
+        });
+      };
+
+      fetchVegetables();
+    }
+
     // Check first if there are (meals) in redux store so not to send request in vain.
     if (reduxMeals.totalNumOfMeals == 0) {
+      // Fetch meals from an API:
       const fetchAllMealsWithAllLetters = async () => {
         alphabet.split("").map(async (letter) => {
           await axios
@@ -54,6 +98,7 @@ const HomePage = () => {
 
     // Check first if there are (drinks) in redux store.
     if (reduxDrinks.totalNumOfDrinks == 0) {
+      // Fetch drinks from an API:
       const fetchAllDrinksWithAllLetters = async () => {
         alphabet.split("").map(async (letter) => {
           await axios

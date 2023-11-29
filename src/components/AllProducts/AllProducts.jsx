@@ -1,11 +1,7 @@
-import { collection, getDocs } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
-import { fruitsActions } from "../../redux/slices/fruitsSlice";
-import { vegetablesActions } from "../../redux/slices/vegetablesSlice";
-import { useEffect, useState } from "react";
-import { db } from "../../config/firebase";
+import { useState } from "react";
 import RenderedProducts from "./RenderedProducts";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const AllProducts = () => {
   const [currentKindOfProducts, setCurrentKindOfProducts] = useState(1);
@@ -22,47 +18,6 @@ const AllProducts = () => {
   const reduxDrinks = useSelector((state) => state.drinks.allDrinks);
   const drinks = [];
   reduxDrinks.forEach((e) => e.drinks.forEach((ele) => drinks.push(ele)));
-
-  const dispatch = useDispatch();
-
-  // Fetching all products if don't exist.
-  useEffect(() => {
-    if (fruits.length == 0) {
-      // Fetch "Fruits collection" from Firebase DB then store it in Redux store.
-      const fetchFruits = async () => {
-        const querySnapshot = await getDocs(collection(db, "fruits"));
-        querySnapshot.forEach((doc) => {
-          // Store the fruits in a redux slice.
-          dispatch(
-            fruitsActions.addNewFruit({
-              fruitName: doc.data().name,
-              fruitDetails: doc.data(),
-            })
-          );
-        });
-      };
-
-      fetchFruits();
-    }
-
-    if (vegetables.length == 0) {
-      // Fetch "Vegetables collection" from Firebase DB then store it in Redux store.
-      const fetchVegetables = async () => {
-        const querySnapshot = await getDocs(collection(db, "vegetables"));
-        querySnapshot.forEach((doc) => {
-          // Store the vegetables in a redux slice.
-          dispatch(
-            vegetablesActions.addNewVegetable({
-              vegetablesName: doc.data().name,
-              vegetablesDetails: doc.data(),
-            })
-          );
-        });
-      };
-
-      fetchVegetables();
-    }
-  }, []);
 
   const chooseTypeOfProductsHandler = (id) => {
     setCurrentKindOfProducts(id);
@@ -88,7 +43,7 @@ const AllProducts = () => {
     {
       id: 4,
       type: "drinks",
-      target: drinks,
+      target: drinks.reverse(), // better products ^ - ^
     },
   ];
 
