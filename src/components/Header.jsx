@@ -4,8 +4,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft, faPlay } from "@fortawesome/free-solid-svg-icons";
 import SuggestedMeal from "./SuggestedMeal";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [applyEffect, setApplyEffect] = useState(false);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setApplyEffect((prevState) => !prevState);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <header className="py-40 bg-slate-50">
       <div className="container flex flex-col items-center justify-between gap-32 lg:flex-row-reverse">
@@ -27,7 +40,11 @@ const Header = () => {
         </div>
 
         <div className="basis-1/2">
-          <button className="flex items-center justify-center gap-2 px-6 py-2 mx-auto duration-300 rounded-full text-main-500 bg-primary-100 hover:bg-primary-700 lg:m-0">
+          <button
+            className={`flex items-center justify-center gap-2 px-6 py-2 mx-auto duration-1000 rounded-full text-main-500 lg:m-0 ${
+              applyEffect ? "bg-primary-700" : "bg-primary-100"
+            }`}
+          >
             More than Faster
             <img src={temp_header} alt="More than Faster" className="w-8" />
           </button>
