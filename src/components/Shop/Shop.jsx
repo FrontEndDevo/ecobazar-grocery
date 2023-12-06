@@ -1,16 +1,10 @@
-import {
-  faArrowRight,
-  faFilter,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
 import ShopFilter from "./ShopFilter";
 import { useState } from "react";
 import shopBackground from "../../assets/images/shop/shop_background.webp";
 import Advantages from "../Advantages";
 import { Link } from "react-router-dom";
-import ShopPagination from "./ShopPagination";
 import MealsShop from "./ShopProducts/MealsShop";
 import DrinksShop from "./ShopProducts/DrinksShop";
 import DeliciousMealsShop from "./ShopProducts/DeliciousMealsShop";
@@ -19,10 +13,6 @@ const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
   const [openFilters, setOpenFilters] = useState(false);
   const [filteredMeals, setFilteredMeals] = useState([]);
-  const [paginationIndices, setPaginationIndices] = useState({
-    start: 0,
-    end: 10,
-  });
 
   const meals = [];
 
@@ -63,23 +53,6 @@ const Shop = () => {
 
   const resetFilteredMealsHandler = () => {
     setFilteredMeals([]);
-  };
-
-  // These coming codes are for ShopPagination component:
-
-  // Number of products we want to show per page:
-  const productsPerPage = 10;
-
-  // Calculate the total pages (10 products):
-  const totalPages = Math.ceil(neededMeals.length / productsPerPage);
-
-  // Store current page (start & end indices).
-  const getCurrentPageHandler = (cur) => {
-    // Calc the first and last product index that should be rendered.
-    const startIndex = (cur - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-
-    setPaginationIndices({ start: startIndex, end: endIndex });
   };
 
   const chooseDeliciousMealsHandler = () => {
@@ -174,24 +147,10 @@ const Shop = () => {
           <div className="flex flex-col gap-4 md:flex-row">
             {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
 
-            {/* {allRenderedMeals} */}
-            {currentProductsId == 2 && (
-              <MealsShop paginationIndices={paginationIndices} />
-            )}
-            {currentProductsId == 1 && (
-              <DrinksShop paginationIndices={paginationIndices} />
-            )}
-            {currentProductsId == 0 && (
-              <DeliciousMealsShop paginationIndices={paginationIndices} />
-            )}
+            {currentProductsId == 0 && <DeliciousMealsShop />}
+            {currentProductsId == 2 && <MealsShop />}
+            {currentProductsId == 1 && <DrinksShop />}
           </div>
-
-          <ShopPagination
-            products={neededMeals}
-            totalPaginationPages={totalPages}
-            getCurrentPage={getCurrentPageHandler}
-            paginationIndices={paginationIndices}
-          />
         </div>
       </div>
     </section>
