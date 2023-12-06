@@ -70,10 +70,10 @@ const ShopPagination = (props) => {
   const submitPageNumberHandler = (e) => {
     e.preventDefault();
     const pageNumInput = +pageNumberRef.current.value;
-
+    console.log(+pageNumberRef.current.value);
     if (pageNumInput >= 1 && pageNumInput <= totalPages) {
       setCurrentPage(pageNumInput);
-      props.getCurrentPage(pageNumInput);
+      props.getCurrentPage(pageNumInput, productsPerPage);
     }
   };
 
