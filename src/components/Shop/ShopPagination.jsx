@@ -31,12 +31,12 @@ const ShopPagination = (props) => {
 
   const previousPageHandler = () => {
     setCurrentPage(currentPage - 1);
-    props.getCurrentPage(currentPage - 1);
+    props.getCurrentPage(currentPage - 1, productsPerPage);
   };
 
   const nextPageHandler = () => {
     setCurrentPage(currentPage + 1);
-    props.getCurrentPage(currentPage + 1);
+    props.getCurrentPage(currentPage + 1, productsPerPage);
   };
 
   const renderedPagesBeforeDots =
@@ -70,7 +70,7 @@ const ShopPagination = (props) => {
   const submitPageNumberHandler = (e) => {
     e.preventDefault();
     const pageNumInput = +pageNumberRef.current.value;
-    console.log(+pageNumberRef.current.value);
+
     if (pageNumInput >= 1 && pageNumInput <= totalPages) {
       setCurrentPage(pageNumInput);
       props.getCurrentPage(pageNumInput, productsPerPage);
