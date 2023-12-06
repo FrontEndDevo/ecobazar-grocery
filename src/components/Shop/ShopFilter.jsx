@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { alphabet } from "../pages/HomePage";
+import { alphabet } from "../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useReducer, useState } from "react";
