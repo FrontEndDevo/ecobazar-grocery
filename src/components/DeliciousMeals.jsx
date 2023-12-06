@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { deliciousMealsActions } from "../redux/slices/deliciousMealsSlice";
-
+import { errorsActions } from "../redux/slices/errorsSlice";
 const settings = {
   className: "center",
   centerMode: true,
@@ -59,8 +59,14 @@ const DeliciousMeals = () => {
             dispatch(deliciousMealsActions.addDeliciousMeals(data.data.meals));
             setError(false);
           })
-          .catch(() => {
+          .catch((err) => {
             setError(true);
+            dispatch(
+              errorsActions.addError({
+                errorType: "deliciousMeals",
+                errorMessage: `Something went wrong! Error:${err}`,
+              })
+            );
           });
       };
       fetchDeliciousMeals();
