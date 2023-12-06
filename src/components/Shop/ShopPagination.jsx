@@ -15,12 +15,18 @@ const ShopPagination = (props) => {
   const prevNextBtnsClasses =
     "w-5 h-5 p-2 mx-2 text-xl text-purple-800 rounded-full disabled:text-gray-400";
 
+  // Number of products we want to show per page:
+  const productsPerPage = 10;
+
+  // Calculate the total pages (10 products):
+  const totalPages = Math.ceil(props.products.length / productsPerPage);
+
   // Send back the page index to change the products when click a page number:
   const changePageHandler = (pageIndex) => {
     setCurrentPage(pageIndex);
 
     // Send page number to parent component.
-    props.getCurrentPage(pageIndex);
+    props.getCurrentPage(pageIndex, productsPerPage);
   };
 
   const previousPageHandler = () => {
@@ -34,7 +40,7 @@ const ShopPagination = (props) => {
   };
 
   const renderedPagesBeforeDots =
-    currentPage <= props.totalPaginationPages / 2 &&
+    currentPage <= totalPages / 2 &&
     Array.from({ length: 4 }, (_, i) => currentPage + 1 + i).map((item) => (
       <button
         key={item}
@@ -47,7 +53,7 @@ const ShopPagination = (props) => {
     ));
 
   const renderedPagesAfterDots =
-    currentPage > props.totalPaginationPages / 2 &&
+    currentPage > totalPages / 2 &&
     Array.from({ length: 4 }, (_, i) => currentPage - 1 - i)
       .reverse()
       .map((item) => (
@@ -65,7 +71,7 @@ const ShopPagination = (props) => {
     e.preventDefault();
     const pageNumInput = +pageNumberRef.current.value;
 
-    if (pageNumInput >= 1 && pageNumInput <= props.totalPaginationPages) {
+    if (pageNumInput >= 1 && pageNumInput <= totalPages) {
       setCurrentPage(pageNumInput);
       props.getCurrentPage(pageNumInput);
     }
@@ -80,8 +86,7 @@ const ShopPagination = (props) => {
           <span>{props.products.length}</span> results
         </p>
         <p>
-          <span>{currentPage}</span> of{" "}
-          <span>{props.totalPaginationPages}</span> pages
+          <span>{currentPage}</span> of <span>{totalPages}</span> pages
         </p>
       </div>
 
@@ -107,20 +112,20 @@ const ShopPagination = (props) => {
             )}
             {renderedPagesBeforeDots}
             {renderedPagesAfterDots}
-            {currentPage - 1 != props.totalPaginationPages - 1 && (
+            {currentPage - 1 != totalPages - 1 && (
               <span className="text-2xl text-main-700">...</span>
             )}
             <button
-              onClick={() => changePageHandler(props.totalPaginationPages)}
+              onClick={() => changePageHandler(totalPages)}
               className={pageNumberClasses}
-              page-number={props.totalPaginationPages}
+              page-number={totalPages}
             >
-              {props.totalPaginationPages}
+              {totalPages}
             </button>
           </div>
 
           <button
-            disabled={currentPage == props.totalPaginationPages}
+            disabled={currentPage == totalPages}
             className={prevNextBtnsClasses}
           >
             <FontAwesomeIcon onClick={nextPageHandler} icon={faChevronRight} />
@@ -136,7 +141,7 @@ const ShopPagination = (props) => {
               id="number"
               min={1}
               ref={pageNumberRef}
-              max={props.totalPaginationPages}
+              max={totalPages}
               defaultValue={currentPage}
               className="h-10 p-2 font-bold text-center border border-indigo-600 rounded w-14 text-main-700 focus:outline-none"
             />
