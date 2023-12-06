@@ -1,8 +1,15 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
+import ShopPagination from "../ShopPagination";
+import { useState } from "react";
 
-const MealsShop = ({ paginationIndices }) => {
+const MealsShop = () => {
+  const [paginationIndices, setPaginationIndices] = useState({
+    start: 0,
+    end: 10,
+  });
+
   // Get (meals) from Redux store.
   const meals = [];
   const storedMeals = useSelector((state) => state.meals);
@@ -59,6 +66,14 @@ const MealsShop = ({ paginationIndices }) => {
     </ul>
   );
 
+  const getCurrentPageHandler = (cur, productsPerPage) => {
+    // Calc the first and last product index that should be rendered.
+    const startIndex = (cur - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+
+    setPaginationIndices({ start: startIndex, end: endIndex });
+  };
+
   return (
     <section>
       <div>
@@ -84,7 +99,14 @@ const MealsShop = ({ paginationIndices }) => {
           </div>
         )}
       </div>
+
       {renderedMeals}
+
+      <ShopPagination
+        products={meals}
+        getCurrentPage={getCurrentPageHandler}
+        paginationIndices={paginationIndices}
+      />
     </section>
   );
 };
