@@ -9,12 +9,21 @@
 }
 
 .slick-slide > div {
-  margin: 0 12px;
+  margin: 1rem;
+}
+.slick-list {
+  margin: 0 -10px;
 }
 
 .slick-slider .slick-prev::before,
 .slick-slider .slick-next::before {
-  color: #00b207;
+  color: black;
+  font-size: 2rem;
+}
+
+.slick-slider > ul > li > button::before {
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
 }
 
 img {
