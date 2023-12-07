@@ -55,7 +55,7 @@ const MealsShop = () => {
                   <span className="font-bold text-green-800">
                     ${meal.price}
                   </span>
-                  <button className="px-3 py-1 text-2xl text-white duration-100 bg-green-500 rounded-full hover:-translate-y-2">
+                  <button className="px-4 py-2 text-2xl text-white duration-100 bg-green-500 rounded-full hover:font-bold hover:rounded-y-none hover:rounded-r-none hover:text-black">
                     +
                   </button>
                 </div>
