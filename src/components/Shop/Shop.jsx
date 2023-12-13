@@ -1,6 +1,6 @@
 import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShopFilter from "./ShopFilter";
+import ShopFilterOld from "./ShopFilterOld";
 import { useState } from "react";
 import shopBackground from "../../assets/images/shop/shop_background.webp";
 import Advantages from "../Advantages";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import MealsShop from "./ShopProducts/MealsShop";
 import DrinksShop from "./ShopProducts/DrinksShop";
 import DeliciousMealsShop from "./ShopProducts/DeliciousMealsShop";
+import ShopFilter from "./ShopFilter";
 
 const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
@@ -69,8 +70,8 @@ const Shop = () => {
 
   return (
     <section className="py-48 text-center lg:text-start lg:py-24">
-      <div className="container">
-        <div className="relative mb-20 text-start">
+      <div className="">
+        <div className="container relative mb-20 text-start">
           <img
             src={shopBackground}
             alt="Fresh and Healthy Food"
@@ -99,7 +100,7 @@ const Shop = () => {
           <Advantages />
         </div>
 
-        <div className="mb-12">
+        <div className="container mb-12">
           <h2 className="pb-4 mx-auto mb-2 text-3xl font-bold lg:text-5xl rounded-xl w-fit text-main-700">
             Featured Products
           </h2>
@@ -128,8 +129,10 @@ const Shop = () => {
           </div>
         </div>
 
+        <ShopFilter />
+
         <div>
-          <div className="flex items-center justify-between">
+          <div className="container flex items-center justify-between">
             <h2
               onClick={toggleFiltersHandler}
               className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
@@ -144,8 +147,10 @@ const Shop = () => {
             </button>
           </div>
 
-          <div className="flex flex-col gap-4 md:flex-row">
-            {openFilters && <ShopFilter getFilters={getUserFiltersHandler} />}
+          <div className="container flex flex-col gap-4 md:flex-row">
+            {openFilters && (
+              <ShopFilterOld getFilters={getUserFiltersHandler} />
+            )}
 
             {currentProductsId == 0 && <DeliciousMealsShop />}
             {currentProductsId == 2 && <MealsShop />}
