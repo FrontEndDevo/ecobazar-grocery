@@ -3,8 +3,7 @@ import { alphabet } from "../../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
-const Letters = () => {
-  // These states for letters.
+const Letter = () => {
   const [openLetters, setOpenLetters] = useState(false);
   const [filterLetters, setFilterLetters] = useState([]);
 
@@ -15,7 +14,7 @@ const Letters = () => {
       : setFilterLetters([...filterLetters, letter]);
   };
 
-  const lettersOptions = (
+  return (
     <div className="relative">
       <div
         onClick={() => setOpenLetters((prevState) => !prevState)}
@@ -43,12 +42,6 @@ const Letters = () => {
       )}
     </div>
   );
-
-  return (
-    <section className="pt-6 pb-24 bg-neutral-100">
-      <div className="container">{lettersOptions}</div>
-    </section>
-  );
 };
 
-export default Letters;
+export default Letter;
