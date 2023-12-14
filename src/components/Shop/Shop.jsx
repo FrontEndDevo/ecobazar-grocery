@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import MealsShop from "./ShopProducts/MealsShop";
 import DrinksShop from "./ShopProducts/DrinksShop";
 import DeliciousMealsShop from "./ShopProducts/DeliciousMealsShop";
-import ShopFilter from "./ShopFilter";
+import ShopFilter from "../Shop/Filters/ShopFilter";
 
 const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
