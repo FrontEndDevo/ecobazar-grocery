@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { alphabet } from "../../pages/HomePage";
+import { alphabet } from "../../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 
 const ShopFilter = () => {
+  const data = useSelector((state) => state);
+  console.log(data);
   // These states for letters.
   const [openLetters, setOpenLetters] = useState(false);
   const [filterLetters, setFilterLetters] = useState([]);
