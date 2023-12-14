@@ -102,11 +102,13 @@ const DrinksShop = () => {
 
       {renderedDrinks}
 
-      <ShopPagination
-        products={drinks}
-        getCurrentPage={getCurrentPageHandler}
-        paginationIndices={paginationIndices}
-      />
+      {!drinks.length == 0 && !drinksError && (
+        <ShopPagination
+          products={drinks}
+          getCurrentPage={getCurrentPageHandler}
+          paginationIndices={paginationIndices}
+        />
+      )}
     </section>
   );
 };

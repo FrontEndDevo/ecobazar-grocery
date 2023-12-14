@@ -147,10 +147,10 @@ const Shop = () => {
             </button>
           </div>
 
-          <div className="container flex flex-col gap-4 md:flex-row">
-            {openFilters && (
+          <div className="container flex flex-col justify-center gap-4 md:flex-row">
+            {/* {openFilters && (
               <ShopFilterOld getFilters={getUserFiltersHandler} />
-            )}
+            )} */}
 
             {currentProductsId == 0 && <DeliciousMealsShop />}
             {currentProductsId == 2 && <MealsShop />}

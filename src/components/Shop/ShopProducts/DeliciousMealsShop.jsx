@@ -102,11 +102,13 @@ const DeliciousMealsShop = () => {
 
       {renderedDeliciousMeals}
 
-      <ShopPagination
-        products={deliciousMeals}
-        getCurrentPage={getCurrentPageHandler}
-        paginationIndices={paginationIndices}
-      />
+      {!deliciousMeals.length == 0 && !deliciousMealsError && (
+        <ShopPagination
+          products={deliciousMeals}
+          getCurrentPage={getCurrentPageHandler}
+          paginationIndices={paginationIndices}
+        />
+      )}
     </section>
   );
 };
