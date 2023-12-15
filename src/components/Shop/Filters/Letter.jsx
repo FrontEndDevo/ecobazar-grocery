@@ -31,7 +31,7 @@ const Letter = () => {
             <li
               key={i}
               className={`px-2 py-1 my-1 duration-200 cursor-pointer hover:bg-primary-100 text-main-700 ${
-                filterLetters.includes(letter) && "bg-primary-100 font-bold"
+                filterLetters.includes(letter) && "bg-primary-100"
               }`}
               onClick={() => chooseLetterHandler(letter)}
             >
