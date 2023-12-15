@@ -29,10 +29,10 @@ const Area = ({ productId }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <div
         onClick={() => setOpenAreas((prevState) => !prevState)}
-        className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
+        className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300 border-2 rounded-lg outline-none cursor-pointer bg-white ${
           openAreas ? "text-main-700 border-primary-700" : "text-neutral-500"
         }`}
       >
@@ -43,7 +43,7 @@ const Area = ({ productId }) => {
         />
       </div>
       {openAreas && (
-        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">
+        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12">
           {productAreas.map((category, i) => (
             <li
               key={i}

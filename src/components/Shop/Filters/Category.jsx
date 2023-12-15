@@ -39,7 +39,7 @@ const Category = ({ productId }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <div
         onClick={() => setOpenCategories((prevState) => !prevState)}
         className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
@@ -55,7 +55,7 @@ const Category = ({ productId }) => {
         />
       </div>
       {openCategories && (
-        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">
+        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12">
           {productCategories.map((category, i) => (
             <li
               key={i}
