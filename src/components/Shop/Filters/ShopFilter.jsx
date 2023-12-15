@@ -1,6 +1,7 @@
 import Letter from "./Letter";
 import Price from "./Price";
 import Category from "./Category";
+import Area from "./Area";
 
 const ShopFilter = (props) => {
   return (
@@ -9,6 +10,7 @@ const ShopFilter = (props) => {
         <div className="flex items-center gap-10">
           <Letter />
           {props.productId != 0 && <Category productId={props.productId} />}
+          {props.productId == 2 && <Area productId={props.productId} />}
         </div>
         <div>
           <Price />
