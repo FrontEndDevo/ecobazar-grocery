@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { alphabet } from "../../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,22 @@ const Letter = () => {
       ? setFilterLetters(filterLetters.filter((item) => item != letter))
       : setFilterLetters([...filterLetters, letter]);
   };
+
+  // This block of code to close the list if user clicked anywhere outside of the list.
+  const listRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (listRef.current && !listRef.current.contains(event.target)) {
+        setOpenLetters(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [listRef]);
 
   return (
     <div className="relative z-50">
@@ -29,7 +45,10 @@ const Letter = () => {
         />
       </div>
       {openLetters && (
-        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12">
+        <ul
+          ref={listRef}
+          className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12"
+        >
           {alphabet.split("").map((letter, i) => (
             <li
               key={i}

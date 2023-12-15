@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
@@ -38,6 +38,22 @@ const Category = ({ productId }) => {
       : setFilterCategories([...filterCategories, cat]);
   };
 
+  // This block of code to close the list if user clicked anywhere outside of the list.
+  const listRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (listRef.current && !listRef.current.contains(event.target)) {
+        setOpenCategories(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [listRef]);
+
   return (
     <div className="relative z-50">
       <div
@@ -55,7 +71,10 @@ const Category = ({ productId }) => {
         />
       </div>
       {openCategories && (
-        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12">
+        <ul
+          ref={listRef}
+          className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-60 top-12"
+        >
           {productCategories.map((category, i) => (
             <li
               key={i}
