@@ -26,7 +26,7 @@ const Letter = () => {
         <FontAwesomeIcon icon={openLetters ? faChevronUp : faChevronDown} />
       </div>
       {openLetters && (
-        <ul className="absolute w-40 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">
+        <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">
           {alphabet.split("").map((letter, i) => (
             <li
               key={i}
