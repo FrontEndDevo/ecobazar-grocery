@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 const Category = ({ productId }) => {
   const [openCategories, setOpenCategories] = useState(false);
@@ -49,7 +49,10 @@ const Category = ({ productId }) => {
         }`}
       >
         <button>Select Category</button>
-        <FontAwesomeIcon icon={openCategories ? faChevronUp : faChevronDown} />
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          className={` duration-300 ${openCategories ? "rotate-180" : ""}`}
+        />
       </div>
       {openCategories && (
         <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">

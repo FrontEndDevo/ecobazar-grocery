@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { alphabet } from "../../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const Letter = () => {
   const [openLetters, setOpenLetters] = useState(false);
@@ -23,7 +23,10 @@ const Letter = () => {
         }`}
       >
         <button>Select Letter</button>
-        <FontAwesomeIcon icon={openLetters ? faChevronUp : faChevronDown} />
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          className={` duration-300 ${openLetters ? "rotate-180" : ""}`}
+        />
       </div>
       {openLetters && (
         <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">

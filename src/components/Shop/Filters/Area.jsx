@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 
 const Area = ({ productId }) => {
@@ -37,7 +37,10 @@ const Area = ({ productId }) => {
         }`}
       >
         <button>Select Area</button>
-        <FontAwesomeIcon icon={openAreas ? faChevronUp : faChevronDown} />
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          className={` duration-300 ${openAreas ? "rotate-180" : ""}`}
+        />
       </div>
       {openAreas && (
         <ul className="absolute w-48 p-1 overflow-hidden overflow-y-auto duration-200 bg-white border rounded-lg h-44 top-12">
