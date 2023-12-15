@@ -18,7 +18,7 @@ const Letter = () => {
     <div className="relative">
       <div
         onClick={() => setOpenLetters((prevState) => !prevState)}
-        className={`flex items-center hover:text-main-700 justify-between w-40 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
+        className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
           openLetters ? "text-main-700 border-primary-700" : "text-neutral-500"
         }`}
       >
