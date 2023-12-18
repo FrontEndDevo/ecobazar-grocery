@@ -15,13 +15,13 @@ export const filtersSlice = createSlice({
   initialState: initialFiltersState,
   reducers: {
     setLetters(state, action) {
-      state.letters = [...state.letters, action.payload.letter];
+      state.letters = action.payload;
     },
     setAreas(state, action) {
-      state.areas = [...state.areas, action.payload.area];
+      state.areas = action.payload;
     },
     setCategories(state, action) {
-      state.categories = [...state.categories, action.payload.category];
+      state.categories = action.payload;
     },
     setPriceRange(state, action) {
       state.priceRange = action.payload;
