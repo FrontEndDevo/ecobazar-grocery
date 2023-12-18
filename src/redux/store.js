@@ -11,6 +11,7 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
+import filtersSlice from "./slices/filtersSlice";
 
 // Prepare all slices in reducers constant:
 const reducers = combineReducers({
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   deliciousMeals: deliciousMealsSlice,
   mealsCategories: mealsCategoriesSlice,
   errors: errorsSlice,
+  filters: filtersSlice,
 });
 
 const persistConfig = {
