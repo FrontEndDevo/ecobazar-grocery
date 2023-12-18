@@ -1,35 +1,23 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filtersActions } from "../../../redux/slices/filtersSlice";
 
 const Price = () => {
-  const [minPrice, setMinPrice] = useState(1);
-  const [maxPrice, setMaxPrice] = useState(200);
+  const dispatch = useDispatch();
+  const minPrice = useSelector((state) => state.filters.priceRange.min);
+  const maxPrice = useSelector((state) => state.filters.priceRange.max);
 
   const chooseMinPriceHandler = (e) => {
-    setMinPrice(+e.target.value);
+    dispatch(filtersActions.setMinPrice(+e.target.value));
   };
 
   const chooseMaxPriceHandler = (e) => {
-    setMaxPrice(+e.target.value);
-  };
-
-  const submitPriceFormHandler = (e) => {
-    e.preventDefault();
-    if (!minPrice || !maxPrice || minPrice > maxPrice) {
-      // Handle validation errors
-      console.error("Invalid price range!");
-      return;
-    }
-    // Submit price range data
-    console.log(`Price range: ${minPrice} - ${maxPrice}`);
+    dispatch(filtersActions.setMaxPrice(+e.target.value));
   };
 
   return (
     <div className="text-center">
       <h2 className="mb-2 text-2xl text-indigo-600">Price</h2>
-      <form
-        onSubmit={submitPriceFormHandler}
-        className="px-2 border-indigo-500 rounded-lg border-x-2"
-      >
+      <form className="px-2 border-indigo-500 rounded-lg border-x-2">
         <div className="flex justify-center gap-6 my-2">
           <div>
             <label

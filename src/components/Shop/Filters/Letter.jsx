@@ -2,16 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import { alphabet } from "../../../pages/HomePage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { filtersActions } from "../../../redux/slices/filtersSlice";
 
 const Letter = () => {
   const [openLetters, setOpenLetters] = useState(false);
-  const [filterLetters, setFilterLetters] = useState([]);
+
+  const dispatch = useDispatch();
+  const letters = useSelector((state) => state.filters.letters);
 
   const chooseLetterHandler = (letter) => {
-    // Check if the letter is exist in the array or not to add/remove it.
-    filterLetters.includes(letter)
-      ? setFilterLetters(filterLetters.filter((item) => item != letter))
-      : setFilterLetters([...filterLetters, letter]);
+    // Check if the letter is exist in the redux array or not to add/remove it.
+    letters.includes(letter)
+      ? dispatch(
+          filtersActions.setLetters(letters.filter((item) => item != letter))
+        )
+      : dispatch(filtersActions.setLetters([...letters, letter]));
   };
 
   // This block of code to close the list if user clicked anywhere outside of the list.
@@ -53,7 +59,7 @@ const Letter = () => {
             <li
               key={i}
               className={`px-2 py-1 my-1 duration-200 cursor-pointer hover:bg-primary-100 text-main-700 ${
-                filterLetters.includes(letter) && "bg-primary-100"
+                letters.includes(letter) && "bg-primary-100"
               }`}
               onClick={() => chooseLetterHandler(letter)}
             >

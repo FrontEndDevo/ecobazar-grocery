@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { filtersActions } from "../../../redux/slices/filtersSlice";
 
 const Area = ({ productId }) => {
   const [openAreas, setOpenAreas] = useState(false);
-  const [filterAreas, setFilterAreas] = useState([]);
+
+  const dispatch = useDispatch();
+  const areas = useSelector((state) => state.filters.areas);
 
   const correctProducts = useSelector((state) =>
     productId == 2 ? state.meals.allMeals : null
@@ -22,10 +25,10 @@ const Area = ({ productId }) => {
   });
 
   const chooseCategoryHandler = (cat) => {
-    // Check if the category is exist in the array or not to add/remove it.
-    filterAreas.includes(cat)
-      ? setFilterAreas(filterAreas.filter((item) => item != cat))
-      : setFilterAreas([...filterAreas, cat]);
+    // Check if the category is exist in the redux array or not to add/remove it.
+    areas.includes(cat)
+      ? dispatch(filtersActions.setAreas(areas.filter((item) => item != cat)))
+      : dispatch(filtersActions.setAreas([...areas, cat]));
   };
 
   // This block of code to close the list if user clicked anywhere outside of the list.
@@ -67,7 +70,7 @@ const Area = ({ productId }) => {
             <li
               key={i}
               className={`px-2 py-1 my-1 duration-200 cursor-pointer hover:bg-primary-100 text-main-700 ${
-                filterAreas.includes(category) && "bg-primary-100"
+                areas.includes(category) && "bg-primary-100"
               }`}
               onClick={() => chooseCategoryHandler(category)}
             >
