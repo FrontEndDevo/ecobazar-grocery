@@ -23,8 +23,17 @@ export const filtersSlice = createSlice({
     setCategories(state, action) {
       state.categories = action.payload;
     },
-    setPriceRange(state, action) {
-      state.priceRange = action.payload;
+    setMinPrice(state, action) {
+      state.priceRange = {
+        ...state.priceRange,
+        min: action.payload,
+      };
+    },
+    setMaxPrice(state, action) {
+      state.priceRange = {
+        ...state.priceRange,
+        max: action.payload,
+      };
     },
   },
 });
