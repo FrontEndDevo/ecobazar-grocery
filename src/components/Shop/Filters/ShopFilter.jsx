@@ -2,13 +2,10 @@ import Letter from "./Letter";
 import Price from "./Price";
 import Category from "./Category";
 import Area from "./Area";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { filtersActions } from "../../../redux/slices/filtersSlice";
 
 const ShopFilter = (props) => {
-  const filters = useSelector((s) => s.filters);
-  console.log(filters);
-
   const dispatch = useDispatch();
   const resetFiltersHandler = () => {
     dispatch(filtersActions.resetFilters());
@@ -27,7 +24,7 @@ const ShopFilter = (props) => {
         </div>
       </div>
       <div
-        className="absolute cursor-pointer top-1/2 right-4"
+        className="absolute cursor-pointer top-4 right-4"
         onClick={resetFiltersHandler}
       >
         <span class="relative flex h-5 w-5">
