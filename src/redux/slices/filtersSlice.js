@@ -6,7 +6,7 @@ const initialFiltersState = {
   categories: [],
   priceRange: {
     min: 0,
-    max: 0,
+    max: 200,
   },
 };
 
@@ -33,6 +33,15 @@ export const filtersSlice = createSlice({
       state.priceRange = {
         ...state.priceRange,
         max: action.payload,
+      };
+    },
+    resetFilters(state) {
+      state.letters = [];
+      state.areas = [];
+      state.categories = [];
+      state.priceRange = {
+        min: 0,
+        max: 200,
       };
     },
   },
