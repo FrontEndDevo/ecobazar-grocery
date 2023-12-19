@@ -60,7 +60,7 @@ const Category = ({ productId }) => {
   }, [listRef]);
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-30">
       <div
         onClick={() => setOpenCategories((prevState) => !prevState)}
         className={`flex items-center hover:text-main-700 justify-between w-48 px-3 py-2 duration-300  border-2 rounded-lg outline-none cursor-pointer bg-white ${
