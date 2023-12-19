@@ -4,6 +4,7 @@ import Category from "./Category";
 import Area from "./Area";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../../redux/slices/filtersSlice";
+import ActiveFilters from "./ActiveFilters";
 
 const ShopFilter = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const ShopFilter = (props) => {
           <Price />
         </div>
       </div>
+
       <div
         className="absolute cursor-pointer top-4 right-4"
         onClick={resetFiltersHandler}
@@ -32,6 +34,7 @@ const ShopFilter = (props) => {
           <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500"></span>
         </span>
       </div>
+      <ActiveFilters />
     </section>
   );
 };
