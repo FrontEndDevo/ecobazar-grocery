@@ -30,10 +30,11 @@ const Price = () => {
               type="number"
               id="minPrice"
               name="minPrice"
-              className="w-20 h-10 px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-20 h-10 px-3 py-2 text-gray-400 border border-gray-300 rounded-md shadow-sm focus:text-main-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder={minPrice}
               min="1"
               max="200"
+              value={minPrice}
               onChange={chooseMinPriceHandler}
             />
           </div>
@@ -49,10 +50,11 @@ const Price = () => {
               type="number"
               id="maxPrice"
               name="maxPrice"
-              className="w-20 h-10 px-3 py-2 text-gray-700 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-20 h-10 px-3 py-2 text-gray-400 border border-gray-300 rounded-md shadow-sm focus:text-main-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
               placeholder={maxPrice}
               min="1"
               max="200"
+              value={maxPrice}
               onChange={chooseMaxPriceHandler}
             />
           </div>
