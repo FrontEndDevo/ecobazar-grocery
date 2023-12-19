@@ -33,7 +33,7 @@ const ActiveFilters = () => {
     <div className="container flex items-center gap-4 py-4 mt-6 border-t-2">
       <h4 className="text-gray-400">Active Filters:</h4>
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         {activeLetters.length != 0 && (
           <ul className={unorderedListClasses}>{activeLetters}</ul>
         )}

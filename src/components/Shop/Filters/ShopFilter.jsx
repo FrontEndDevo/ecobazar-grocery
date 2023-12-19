@@ -14,13 +14,13 @@ const ShopFilter = (props) => {
 
   return (
     <section className="relative py-6 my-6 bg-neutral-100">
-      <div className="container flex items-center justify-between">
-        <div className="flex items-center gap-8">
+      <div className="container flex flex-col items-center justify-between lg:items-center lg:flex-row">
+        <div className="flex flex-wrap items-center gap-8 mx-4 mb-8 lg:mb-0">
           <Letter />
           {props.productId != 0 && <Category productId={props.productId} />}
           {props.productId == 2 && <Area productId={props.productId} />}
         </div>
-        <div>
+        <div className="px-4">
           <Price />
         </div>
       </div>
@@ -34,7 +34,9 @@ const ShopFilter = (props) => {
           <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500"></span>
         </span>
       </div>
-      <ActiveFilters />
+      <div className="mx-4 lg:mx-0">
+        <ActiveFilters />
+      </div>
     </section>
   );
 };
