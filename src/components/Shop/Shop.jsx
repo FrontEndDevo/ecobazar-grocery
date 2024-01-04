@@ -1,6 +1,5 @@
-import { faArrowRight, faFilter } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShopFilterOld from "./ShopFilterOld";
 import { useState } from "react";
 import shopBackground from "../../assets/images/shop/shop_background.webp";
 import Advantages from "../Advantages";
