@@ -12,45 +12,6 @@ import ShopFilter from "../Shop/Filters/ShopFilter";
 
 const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
-  const [openFilters, setOpenFilters] = useState(false);
-  const [filteredMeals, setFilteredMeals] = useState([]);
-
-  const meals = [];
-
-  // Get filters obj when user click "apply" btn and filter all meals.
-  const getUserFiltersHandler = (filters) => {
-    const filteredMeals = [];
-    // Get all meals with (letters) filter.
-    filters.letters.forEach((letter) => {
-      const mealsArrByLetter = meals.filter(
-        (meal) => meal.strMeal.charAt(0).toLowerCase() == letter
-      );
-      filteredMeals.push(...mealsArrByLetter);
-    });
-
-    // Get all meals with (areas) filter.
-    filters.areas.forEach((area) => {
-      const mealsArrByArea = meals.filter((meal) => meal.strArea == area);
-      filteredMeals.push(...mealsArrByArea);
-    });
-
-    // Get all meals with (categories) filter.
-    filters.categories.forEach((category) => {
-      const mealsArrByCategory = meals.filter(
-        (meal) => meal.strCategory == category
-      );
-      filteredMeals.push(...mealsArrByCategory);
-    });
-
-    setFilteredMeals(filteredMeals);
-  };
-
-  // Render all meals from Redux store OR render all filtered meals:
-  const neededMeals = filteredMeals.length != 0 ? filteredMeals : meals;
-
-  const toggleFiltersHandler = () => {
-    setOpenFilters((prevState) => !prevState);
-  };
 
   const resetFilteredMealsHandler = () => {
     setFilteredMeals([]);
@@ -129,33 +90,12 @@ const Shop = () => {
           </div>
         </div>
 
-        <ShopFilter />
+        <ShopFilter productId={currentProductsId} />
 
-        <div>
-          <div className="container flex items-center justify-between">
-            <h2
-              onClick={toggleFiltersHandler}
-              className="flex items-center gap-2 p-2 mb-4 text-xl font-bold duration-200 border border-l-0 border-black rounded cursor-pointer lg:p-4 lg:border-l lg:text-3xl w-fit hover:bg-gray-100 text-main-700"
-            >
-              <FontAwesomeIcon icon={faFilter} /> Filter
-            </h2>
-            <button
-              onClick={resetFilteredMealsHandler}
-              className="p-1 text-sm font-bold text-white duration-200 bg-red-600 rounded-sm hover:bg-red-800"
-            >
-              Reset
-            </button>
-          </div>
-
-          <div className="container flex flex-col justify-center gap-4 md:flex-row">
-            {/* {openFilters && (
-              <ShopFilterOld getFilters={getUserFiltersHandler} />
-            )} */}
-
-            {currentProductsId == 0 && <DeliciousMealsShop />}
-            {currentProductsId == 2 && <MealsShop />}
-            {currentProductsId == 1 && <DrinksShop />}
-          </div>
+        <div className="container flex flex-col justify-center gap-4 md:flex-row">
+          {currentProductsId == 0 && <DeliciousMealsShop />}
+          {currentProductsId == 2 && <MealsShop />}
+          {currentProductsId == 1 && <DrinksShop />}
         </div>
       </div>
     </section>
