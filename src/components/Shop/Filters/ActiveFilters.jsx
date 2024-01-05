@@ -7,21 +7,21 @@ const ActiveFilters = () => {
   const activeLetters = availableFilters.letters.map((item, i) => (
     <li key={i}>
       {item}
-      <span>, </span>
+      {i + 1 != availableFilters.letters.length && <span>, </span>}
     </li>
   ));
 
   const activeCategories = availableFilters.categories.map((item, i) => (
     <li key={i}>
       {item}
-      <span>, </span>
+      {i + 1 != availableFilters.categories.length && <span>, </span>}
     </li>
   ));
 
   const activeAreas = availableFilters.areas.map((item, i) => (
     <li key={i}>
       {item}
-      <span>, </span>
+      {i + 1 != availableFilters.areas.length && <span>, </span>}
     </li>
   ));
 
