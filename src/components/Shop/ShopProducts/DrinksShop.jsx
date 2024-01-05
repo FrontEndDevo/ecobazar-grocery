@@ -21,10 +21,34 @@ const DrinksShop = () => {
     (item) => item.errorType == "drinks"
   )[0];
 
+  // Obtain filters, if any.
+  const filters = useSelector((state) => state.filters);
+  // Render all filtered meals:
+  const filteredDrinks = drinks.filter((item) => {
+    // Filter based on letters
+    const firstLetterMatches =
+      filters.letters.length != 0 &&
+      filters.letters.includes(item.strDrink.trim().toLowerCase().charAt(0));
+
+    // Filter based on area
+    const areaMatches =
+      filters.areas.length != 0 && filters.areas.includes(item.strArea);
+
+    // Filter based on category
+    const categoryMatches =
+      (filters.categories.length != 0) &
+      filters.categories.includes(item.strCategory);
+
+    // Return true if all filters match
+    return firstLetterMatches || areaMatches || categoryMatches;
+  });
+
+  const correctDrinks = filteredDrinks.length != 0 ? filteredDrinks : drinks;
+
   // Render all drinks:
   const renderedDrinks = (
     <ul className="flex flex-wrap items-center justify-center gap-6">
-      {drinks
+      {correctDrinks
         .slice(paginationIndices.start, paginationIndices.end)
         .map((drink, index) => {
           const drinkName =
@@ -104,7 +128,7 @@ const DrinksShop = () => {
 
       {!drinks.length == 0 && !drinksError && (
         <ShopPagination
-          products={drinks}
+          products={correctDrinks}
           getCurrentPage={getCurrentPageHandler}
           paginationIndices={paginationIndices}
         />
