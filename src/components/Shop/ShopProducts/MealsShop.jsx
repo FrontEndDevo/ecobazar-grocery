@@ -21,10 +21,34 @@ const MealsShop = () => {
     (item) => item.errorType == "meals"
   )[0];
 
+  // Obtain filters, if any.
+  const filters = useSelector((state) => state.filters);
+  // Render all filtered meals:
+  const filteredMeals = meals.filter((item) => {
+    // Filter based on letters
+    const firstLetterMatches =
+      filters.letters.length != 0 &&
+      filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
+
+    // Filter based on area
+    const areaMatches =
+      filters.areas.length != 0 && filters.areas.includes(item.strArea);
+
+    // Filter based on category
+    const categoryMatches =
+      (filters.categories.length != 0) &
+      filters.categories.includes(item.strCategory);
+
+    // Return true if all filters match
+    return firstLetterMatches || areaMatches || categoryMatches;
+  });
+
+  const correctMeals = filteredMeals.length != 0 ? filteredMeals : meals;
+
   // Render all meals:
   const renderedMeals = (
     <ul className="flex flex-wrap items-center justify-center gap-6">
-      {meals
+      {correctMeals
         .slice(paginationIndices.start, paginationIndices.end)
         .map((meal, index) => {
           const mealName =
@@ -104,7 +128,7 @@ const MealsShop = () => {
 
       {!meals.length == 0 && !mealsError && (
         <ShopPagination
-          products={meals}
+          products={correctMeals}
           getCurrentPage={getCurrentPageHandler}
           paginationIndices={paginationIndices}
         />
