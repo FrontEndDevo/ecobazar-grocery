@@ -19,10 +19,37 @@ const DeliciousMealsShop = () => {
     (state) => state.errors.allErrors
   ).filter((item) => item.errorType == "deliciousMeals")[0];
 
-  // Render all meals:
+  // Obtain filters, if any.
+  const filters = useSelector((state) => state.filters);
+  // Render all filtered meals:
+  const filteredDeliciousMeals = deliciousMeals.filter((item) => {
+    // Filter based on letters
+    const firstLetterMatches =
+      filters.letters.length != 0 &&
+      filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
+
+    // Filter based on area
+    const areaMatches =
+      filters.areas.length != 0 && filters.areas.includes(item.strArea);
+
+    // Filter based on category
+    const categoryMatches =
+      (filters.categories.length != 0) &
+      filters.categories.includes(item.strCategory);
+
+    // Return true if all filters match
+    return firstLetterMatches || areaMatches || categoryMatches;
+  });
+
+  const correctDeliciousMeals =
+    filteredDeliciousMeals.length != 0
+      ? filteredDeliciousMeals
+      : deliciousMeals;
+
+  // Render all delicious meals:
   const renderedDeliciousMeals = (
     <ul className="flex flex-wrap items-center justify-center gap-6">
-      {deliciousMeals
+      {correctDeliciousMeals
         .slice(paginationIndices.start, paginationIndices.end)
         .map((meal, index) => {
           const mealName =
@@ -104,7 +131,7 @@ const DeliciousMealsShop = () => {
 
       {!deliciousMeals.length == 0 && !deliciousMealsError && (
         <ShopPagination
-          products={deliciousMeals}
+          products={correctDeliciousMeals}
           getCurrentPage={getCurrentPageHandler}
           paginationIndices={paginationIndices}
         />
