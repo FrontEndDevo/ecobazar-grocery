@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
 import { useEffect, useState } from "react";
-import { resultsActions } from "../../../redux/slices/filtersSlice";
+import { resultsActions } from "../../../redux/slices/resultsSlice";
 
 const MealsShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({

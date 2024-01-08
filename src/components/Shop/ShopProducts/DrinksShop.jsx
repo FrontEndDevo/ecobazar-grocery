@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
 import { useEffect, useState } from "react";
-import { resultsActions } from "../../../redux/slices/filtersSlice";
+import { resultsActions } from "../../../redux/slices/resultsSlice";
 
 const DrinksShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({
@@ -53,7 +53,7 @@ const DrinksShop = () => {
     // Store the total results found.
     dispatch(resultsActions.addResults(filteredProducts.length));
 
-    setFilteredDrinks(filteredProducts);
+    // setFilteredDrinks(filteredProducts);
   }, [drinks, filters]);
 
   const correctDrinks = filteredDrinks.length != 0 ? filteredDrinks : drinks;
