@@ -1,14 +1,18 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { resultsActions } from "../../../redux/slices/filtersSlice";
 
 const DeliciousMealsShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
     end: 10,
   });
+  const [filteredDeliciousMeals, setFilteredDeliciousMeals] = useState([]);
+
+  const dispatch = useDispatch();
 
   // Get (meals) from Redux store.
   const deliciousMeals = useSelector(
@@ -21,25 +25,33 @@ const DeliciousMealsShop = () => {
 
   // Obtain filters, if any.
   const filters = useSelector((state) => state.filters);
-  // Render all filtered meals:
-  const filteredDeliciousMeals = deliciousMeals.filter((item) => {
-    // Filter based on letters
-    const firstLetterMatches =
-      filters.letters.length != 0 &&
-      filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
 
-    // Filter based on area
-    const areaMatches =
-      filters.areas.length != 0 && filters.areas.includes(item.strArea);
+  useEffect(() => {
+    // Render all filtered meals:
+    const filteredProducts = deliciousMeals.filter((item) => {
+      // Filter based on letters
+      const firstLetterMatches =
+        filters.letters.length != 0 &&
+        filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
 
-    // Filter based on category
-    const categoryMatches =
-      (filters.categories.length != 0) &
-      filters.categories.includes(item.strCategory);
+      // Filter based on area
+      const areaMatches =
+        filters.areas.length != 0 && filters.areas.includes(item.strArea);
 
-    // Return true if all filters match
-    return firstLetterMatches || areaMatches || categoryMatches;
-  });
+      // Filter based on category
+      const categoryMatches =
+        (filters.categories.length != 0) &
+        filters.categories.includes(item.strCategory);
+
+      // Return true if all filters match
+      return firstLetterMatches || areaMatches || categoryMatches;
+    });
+
+    // Store the total results found.
+    dispatch(resultsActions.addResults(filteredProducts.length));
+
+    setFilteredDeliciousMeals(filteredProducts);
+  }, [deliciousMeals, filters]);
 
   const correctDeliciousMeals =
     filteredDeliciousMeals.length != 0

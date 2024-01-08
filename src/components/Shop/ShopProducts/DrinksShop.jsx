@@ -1,14 +1,19 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { resultsActions } from "../../../redux/slices/filtersSlice";
 
 const DrinksShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
     end: 10,
   });
+
+  const [filteredDrinks, setFilteredDrinks] = useState([]);
+
+  const dispatch = useDispatch();
 
   // Get (drinks) from Redux store.
   const drinks = [];
@@ -23,25 +28,33 @@ const DrinksShop = () => {
 
   // Obtain filters, if any.
   const filters = useSelector((state) => state.filters);
-  // Render all filtered meals:
-  const filteredDrinks = drinks.filter((item) => {
-    // Filter based on letters
-    const firstLetterMatches =
-      filters.letters.length != 0 &&
-      filters.letters.includes(item.strDrink.trim().toLowerCase().charAt(0));
 
-    // Filter based on area
-    const areaMatches =
-      filters.areas.length != 0 && filters.areas.includes(item.strArea);
+  useEffect(() => {
+    // Render all filtered meals:
+    const filteredProducts = drinks.filter((item) => {
+      // Filter based on letters
+      const firstLetterMatches =
+        filters.letters.length != 0 &&
+        filters.letters.includes(item.strDrink.trim().toLowerCase().charAt(0));
 
-    // Filter based on category
-    const categoryMatches =
-      (filters.categories.length != 0) &
-      filters.categories.includes(item.strCategory);
+      // Filter based on area
+      const areaMatches =
+        filters.areas.length != 0 && filters.areas.includes(item.strArea);
 
-    // Return true if all filters match
-    return firstLetterMatches || areaMatches || categoryMatches;
-  });
+      // Filter based on category
+      const categoryMatches =
+        (filters.categories.length != 0) &
+        filters.categories.includes(item.strCategory);
+
+      // Return true if all filters match
+      return firstLetterMatches || areaMatches || categoryMatches;
+    });
+
+    // Store the total results found.
+    dispatch(resultsActions.addResults(filteredProducts.length));
+
+    setFilteredDrinks(filteredProducts);
+  }, [drinks, filters]);
 
   const correctDrinks = filteredDrinks.length != 0 ? filteredDrinks : drinks;
 
