@@ -10,6 +10,7 @@ import DeliciousMealsShop from "./ShopProducts/DeliciousMealsShop";
 import ShopFilter from "../Shop/Filters/ShopFilter";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../redux/slices/filtersSlice";
+import { resultsActions } from "../../redux/slices/resultsSlice";
 
 const Shop = () => {
   const [currentProductsId, setCurrentProductsId] = useState(1); // 0 || 1 || 2
@@ -18,16 +19,19 @@ const Shop = () => {
   const chooseDeliciousMealsHandler = () => {
     setCurrentProductsId(0);
     dispatch(filtersActions.resetFilters());
+    dispatch(resultsActions.resetResults());
   };
 
   const chooseDrinksHandler = () => {
     setCurrentProductsId(1);
     dispatch(filtersActions.resetFilters());
+    dispatch(resultsActions.resetResults());
   };
 
   const chooseMealsHandler = () => {
     setCurrentProductsId(2);
     dispatch(filtersActions.resetFilters());
+    dispatch(resultsActions.resetResults());
   };
 
   return (

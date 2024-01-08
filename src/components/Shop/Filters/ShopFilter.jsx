@@ -5,11 +5,13 @@ import Area from "./Area";
 import { useDispatch } from "react-redux";
 import { filtersActions } from "../../../redux/slices/filtersSlice";
 import ActiveFilters from "./ActiveFilters";
+import { resultsActions } from "../../../redux/slices/resultsSlice";
 
 const ShopFilter = (props) => {
   const dispatch = useDispatch();
   const resetFiltersHandler = () => {
     dispatch(filtersActions.resetFilters());
+    dispatch(resultsActions.resetResults());
   };
 
   return (
