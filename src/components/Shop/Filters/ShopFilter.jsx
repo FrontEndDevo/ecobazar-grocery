@@ -29,9 +29,9 @@ const ShopFilter = (props) => {
         className="absolute cursor-pointer top-4 right-4"
         onClick={resetFiltersHandler}
       >
-        <span class="relative flex h-5 w-5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-5 w-5 bg-red-500"></span>
+        <span className="relative flex w-5 h-5">
+          <span className="absolute inline-flex w-full h-full bg-red-500 rounded-full opacity-75 animate-ping"></span>
+          <span className="relative inline-flex w-5 h-5 bg-red-500 rounded-full"></span>
         </span>
       </div>
       <div className="mx-4 lg:mx-0">
