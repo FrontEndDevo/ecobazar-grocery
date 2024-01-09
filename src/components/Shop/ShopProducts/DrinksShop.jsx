@@ -53,8 +53,8 @@ const DrinksShop = () => {
     // Store the total results found.
     dispatch(resultsActions.addResults(filteredProducts.length));
 
-    // setFilteredDrinks(filteredProducts);
-  }, [drinks, filters]);
+    setFilteredDrinks(filteredProducts);
+  }, [filters]);
 
   const correctDrinks = filteredDrinks.length != 0 ? filteredDrinks : drinks;
 

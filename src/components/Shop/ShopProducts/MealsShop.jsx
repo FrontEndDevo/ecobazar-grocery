@@ -53,7 +53,7 @@ const MealsShop = () => {
     dispatch(resultsActions.addResults(filteredProducts.length));
 
     setFilteredMeals(filteredProducts);
-  }, [meals, filters]);
+  }, [filters]);
 
   const correctMeals = filteredMeals.length != 0 ? filteredMeals : meals;
 

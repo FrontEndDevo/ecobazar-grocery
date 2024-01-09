@@ -51,7 +51,7 @@ const DeliciousMealsShop = () => {
     dispatch(resultsActions.addResults(filteredProducts.length));
 
     setFilteredDeliciousMeals(filteredProducts);
-  }, [deliciousMeals, filters]);
+  }, [filters]);
 
   const correctDeliciousMeals =
     filteredDeliciousMeals.length != 0
