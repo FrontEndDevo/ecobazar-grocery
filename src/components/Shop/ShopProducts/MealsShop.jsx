@@ -45,8 +45,15 @@ const MealsShop = () => {
         (filters.categories.length != 0) &
         filters.categories.includes(item.strCategory);
 
+      // Filter based on price range
+      const priceMatches =
+        filters.priceRange.min <= item.price &&
+        item.price <= filters.priceRange.max;
+
       // Return true if all filters match
-      return firstLetterMatches || areaMatches || categoryMatches;
+      return (
+        firstLetterMatches || areaMatches || categoryMatches || priceMatches
+      );
     });
 
     // Store the total results found.
