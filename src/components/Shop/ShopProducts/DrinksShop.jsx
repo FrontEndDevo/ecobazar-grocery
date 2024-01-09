@@ -1,9 +1,8 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
 import { useEffect, useState } from "react";
-import { resultsActions } from "../../../redux/slices/resultsSlice";
 
 const DrinksShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({
@@ -12,8 +11,6 @@ const DrinksShop = () => {
   });
 
   const [filteredDrinks, setFilteredDrinks] = useState([]);
-
-  const dispatch = useDispatch();
 
   // Get (drinks) from Redux store.
   const drinks = [];
@@ -56,9 +53,6 @@ const DrinksShop = () => {
         firstLetterMatches || areaMatches || categoryMatches || priceMatches
       );
     });
-
-    // Store the total results found.
-    dispatch(resultsActions.addResults(filteredProducts.length));
 
     setFilteredDrinks(filteredProducts);
   }, [filters]);
@@ -137,7 +131,12 @@ const DrinksShop = () => {
           <div>
             <p className="mb-4 text-base italic font-bold text-main-700">
               Available drinks &lt;
-              <span className="text-xl text-orange-600"> {drinks.length} </span>
+              <span className="text-xl text-orange-600">
+                {" "}
+                {filteredDrinks.length != 0
+                  ? filteredDrinks.length
+                  : drinks.length}{" "}
+              </span>
               &gt;
             </p>
           </div>

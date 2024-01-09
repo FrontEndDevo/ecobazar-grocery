@@ -1,9 +1,8 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ShopPagination from "../ShopPagination";
 import { useEffect, useState } from "react";
-import { resultsActions } from "../../../redux/slices/resultsSlice";
 
 const DeliciousMealsShop = () => {
   const [paginationIndices, setPaginationIndices] = useState({
@@ -11,8 +10,6 @@ const DeliciousMealsShop = () => {
     end: 10,
   });
   const [filteredDeliciousMeals, setFilteredDeliciousMeals] = useState([]);
-
-  const dispatch = useDispatch();
 
   // Get (meals) from Redux store.
   const deliciousMeals = useSelector(
@@ -53,9 +50,6 @@ const DeliciousMealsShop = () => {
         firstLetterMatches || areaMatches || categoryMatches || priceMatches
       );
     });
-
-    // Store the total results found.
-    dispatch(resultsActions.addResults(filteredProducts.length));
 
     setFilteredDeliciousMeals(filteredProducts);
   }, [filters]);
@@ -138,7 +132,9 @@ const DeliciousMealsShop = () => {
               Available delicious meals &lt;
               <span className="text-xl text-orange-600">
                 {" "}
-                {deliciousMeals.length}{" "}
+                {filteredDeliciousMeals.length != 0
+                  ? filteredDeliciousMeals.length
+                  : deliciousMeals.length}{" "}
               </span>
               &gt;
             </p>
