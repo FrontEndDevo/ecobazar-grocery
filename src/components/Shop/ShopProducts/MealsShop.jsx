@@ -30,31 +30,38 @@ const MealsShop = () => {
     const filteredProducts = meals.filter((item) => {
       // Filter based on letters
       const firstLetterMatches =
-        filters.letters.length != 0 &&
+        filters.letters.length !== 0 &&
         filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
 
       // Filter based on area
       const areaMatches =
-        filters.areas.length != 0 && filters.areas.includes(item.strArea);
+        filters.areas.length !== 0 && filters.areas.includes(item.strArea);
 
       // Filter based on category
       const categoryMatches =
-        (filters.categories.length != 0) &
+        filters.categories.length !== 0 &&
         filters.categories.includes(item.strCategory);
 
-      // Filter based on price range
-      const priceMatches =
-        filters.priceRange.min <= item.price &&
-        item.price <= filters.priceRange.max;
-
-      // Return true if all filters match
-      return (
-        firstLetterMatches || areaMatches || categoryMatches || priceMatches
-      );
+      // Return true if any of the filters match
+      return firstLetterMatches || areaMatches || categoryMatches;
     });
 
-    setFilteredMeals(filteredProducts);
-  }, [filters]);
+    // Apply the price range filter if it's not the default range
+    if (filters.priceRange.min !== 0 || filters.priceRange.max !== 200) {
+      const currentFilteredProducts = filteredProducts.length
+        ? filteredProducts
+        : meals;
+      const priceFilteredProducts = currentFilteredProducts.filter((item) => {
+        const priceMatches =
+          filters.priceRange.min <= item.price &&
+          item.price <= filters.priceRange.max;
+        return priceMatches;
+      });
+      setFilteredMeals(priceFilteredProducts);
+    } else {
+      setFilteredMeals(filteredProducts);
+    }
+  }, [filters, meals]);
 
   const correctMeals = filteredMeals.length != 0 ? filteredMeals : meals;
 

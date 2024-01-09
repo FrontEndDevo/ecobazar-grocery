@@ -22,37 +22,43 @@ const DeliciousMealsShop = () => {
 
   // Obtain filters, if any.
   const filters = useSelector((state) => state.filters);
-
   useEffect(() => {
     // Render all filtered meals:
     const filteredProducts = deliciousMeals.filter((item) => {
       // Filter based on letters
       const firstLetterMatches =
-        filters.letters.length != 0 &&
+        filters.letters.length !== 0 &&
         filters.letters.includes(item.strMeal.trim().toLowerCase().charAt(0));
 
       // Filter based on area
       const areaMatches =
-        filters.areas.length != 0 && filters.areas.includes(item.strArea);
+        filters.areas.length !== 0 && filters.areas.includes(item.strArea);
 
       // Filter based on category
       const categoryMatches =
-        (filters.categories.length != 0) &
+        filters.categories.length !== 0 &&
         filters.categories.includes(item.strCategory);
 
-      // Filter based on price range
-      const priceMatches =
-        filters.priceRange.min <= item.price &&
-        item.price <= filters.priceRange.max;
-
-      // Return true if all filters match
-      return (
-        firstLetterMatches || areaMatches || categoryMatches || priceMatches
-      );
+      // Return true if any of the filters match
+      return firstLetterMatches || areaMatches || categoryMatches;
     });
 
-    setFilteredDeliciousMeals(filteredProducts);
-  }, [filters]);
+    // Apply the price range filter if it's not the default range
+    if (filters.priceRange.min !== 0 || filters.priceRange.max !== 200) {
+      const currentFilteredProducts = filteredProducts.length
+        ? filteredProducts
+        : deliciousMeals;
+      const priceFilteredProducts = currentFilteredProducts.filter((item) => {
+        const priceMatches =
+          filters.priceRange.min <= item.price &&
+          item.price <= filters.priceRange.max;
+        return priceMatches;
+      });
+      setFilteredDeliciousMeals(priceFilteredProducts);
+    } else {
+      setFilteredDeliciousMeals(filteredProducts);
+    }
+  }, [filters, deliciousMeals]);
 
   const correctDeliciousMeals =
     filteredDeliciousMeals.length != 0
