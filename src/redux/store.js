@@ -12,7 +12,6 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 import filtersSlice from "./slices/filtersSlice";
-import resultsSlice from "./slices/resultsSlice";
 
 // Prepare all slices in reducers constant:
 const reducers = combineReducers({
@@ -25,7 +24,6 @@ const reducers = combineReducers({
   mealsCategories: mealsCategoriesSlice,
   errors: errorsSlice,
   filters: filtersSlice,
-  results: resultsSlice,
 });
 
 const persistConfig = {
