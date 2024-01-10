@@ -125,8 +125,6 @@ const HomePage = () => {
     }
   }, []);
 
-  // Now we need to fetch drinks above 👆🏻 then create a slice for drinks.
-  // we need to split Shop.jsx and create seperate two components (meals & drinks).
   return (
     <>
       <Navbar />
