@@ -22,7 +22,7 @@ import { db } from "../config/firebase";
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-const HomePage = () => {
+const Homepage = () => {
   const dispatch = useDispatch();
 
   const fruits = useSelector((state) => state.fruits.fruits);
@@ -143,4 +143,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Homepage;
