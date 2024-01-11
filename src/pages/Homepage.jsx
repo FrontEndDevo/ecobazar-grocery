@@ -19,6 +19,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { fruitsActions } from "../redux/slices/fruitsSlice";
 import { vegetablesActions } from "../redux/slices/vegetablesSlice";
 import { db } from "../config/firebase";
+import { errorsActions } from "../redux/slices/errorsSlice";
 
 export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 
