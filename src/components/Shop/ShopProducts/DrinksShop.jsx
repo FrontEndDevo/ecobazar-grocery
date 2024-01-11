@@ -62,7 +62,7 @@ const DrinksShop = () => {
     } else {
       setFilteredDrinks(filteredProducts);
     }
-  }, [filters, drinks]);
+  }, [filters]);
 
   const correctDrinks = filteredDrinks.length != 0 ? filteredDrinks : drinks;
 

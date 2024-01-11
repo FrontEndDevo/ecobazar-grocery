@@ -58,7 +58,7 @@ const DeliciousMealsShop = () => {
     } else {
       setFilteredDeliciousMeals(filteredProducts);
     }
-  }, [filters, deliciousMeals]);
+  }, [filters]);
 
   const correctDeliciousMeals =
     filteredDeliciousMeals.length != 0

@@ -61,7 +61,7 @@ const MealsShop = () => {
     } else {
       setFilteredMeals(filteredProducts);
     }
-  }, [filters, meals]);
+  }, [filters]);
 
   const correctMeals = filteredMeals.length != 0 ? filteredMeals : meals;
 
