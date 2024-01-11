@@ -34,93 +34,111 @@ const Homepage = () => {
   // Fetch all products from either Firebase or API:
   useEffect(() => {
     // Fetch fruits from Firebase DB:
-    if (fruits.length == 0) {
+    if (fruits.length === 0) {
       const fetchFruits = async () => {
-        const querySnapshot = await getDocs(collection(db, "fruits"));
-        querySnapshot.forEach((doc) => {
-          // Store the fruits in a redux slice.
+        try {
+          const querySnapshot = await getDocs(collection(db, "fruits"));
+          querySnapshot.forEach((doc) => {
+            dispatch(
+              fruitsActions.addNewFruit({
+                fruitName: doc.data().name,
+                fruitDetails: doc.data(),
+              })
+            );
+          });
+        } catch (error) {
           dispatch(
-            fruitsActions.addNewFruit({
-              fruitName: doc.data().name,
-              fruitDetails: doc.data(),
+            errorsActions.addError({
+              errorType: "fruits",
+              errorMessage: `Something went wrong! Error: ${error}`,
             })
           );
-        });
+        }
       };
 
       fetchFruits();
     }
 
     // Fetch vegetables from Firebase DB:
-    if (vegetables.length == 0) {
+    if (vegetables.length === 0) {
       const fetchVegetables = async () => {
-        const querySnapshot = await getDocs(collection(db, "vegetables"));
-        querySnapshot.forEach((doc) => {
-          // Store the vegetables in a redux slice.
+        try {
+          const querySnapshot = await getDocs(collection(db, "vegetables"));
+          querySnapshot.forEach((doc) => {
+            dispatch(
+              vegetablesActions.addNewVegetable({
+                vegetablesName: doc.data().name,
+                vegetablesDetails: doc.data(),
+              })
+            );
+          });
+        } catch (error) {
           dispatch(
-            vegetablesActions.addNewVegetable({
-              vegetablesName: doc.data().name,
-              vegetablesDetails: doc.data(),
+            errorsActions.addError({
+              errorType: "vegetables",
+              errorMessage: `Something went wrong! Error: ${error}`,
             })
           );
-        });
+        }
       };
 
       fetchVegetables();
     }
 
     // Check first if there are (meals) in redux store so not to send request in vain.
-    if (reduxMeals.totalNumOfMeals == 0) {
-      // Fetch meals from an API:
+    if (reduxMeals.totalNumOfMeals === 0) {
       const fetchAllMealsWithAllLetters = async () => {
-        alphabet.split("").map(async (letter) => {
-          await axios
-            .get(`${import.meta.env.VITE_MEALS_BY_FIRST_LETTER}=${letter}`)
-            .then((res) => {
+        try {
+          await Promise.all(
+            alphabet.split("").map(async (letter) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_MEALS_BY_FIRST_LETTER}=${letter}`
+              );
               dispatch(
                 mealsActions.addNewMealType({
                   letter,
-                  meals: res.data.meals || [],
+                  meals: response.data.meals || [],
                 })
               );
             })
-            .catch((err) => {
-              dispatch(
-                errorsActions.addError({
-                  errorType: "meals",
-                  errorMessage: `Something went wrong! Error:${err}`,
-                })
-              );
-            });
-        });
+          );
+        } catch (error) {
+          dispatch(
+            errorsActions.addError({
+              errorType: "meals",
+              errorMessage: `Something went wrong! Error: ${error}`,
+            })
+          );
+        }
       };
       fetchAllMealsWithAllLetters();
     }
 
     // Check first if there are (drinks) in redux store.
-    if (reduxDrinks.totalNumOfDrinks == 0) {
-      // Fetch drinks from an API:
+    if (reduxDrinks.totalNumOfDrinks === 0) {
       const fetchAllDrinksWithAllLetters = async () => {
-        alphabet.split("").map(async (letter) => {
-          await axios
-            .get(`${import.meta.env.VITE_DRINKS_BY_FIRST_LETTER}=${letter}`)
-            .then((res) => {
+        try {
+          await Promise.all(
+            alphabet.split("").map(async (letter) => {
+              const response = await axios.get(
+                `${import.meta.env.VITE_DRINKS_BY_FIRST_LETTER}=${letter}`
+              );
               dispatch(
                 drinksActions.addNewDrinkType({
                   letter,
-                  drinks: res.data.drinks || [],
+                  drinks: response.data.drinks || [],
                 })
               );
             })
-            .catch((err) => {
-              dispatch(
-                errorsActions.addError({
-                  errorType: "drinks",
-                  errorMessage: `Something went wrong! Error:${err}`,
-                })
-              );
-            });
-        });
+          );
+        } catch (error) {
+          dispatch(
+            errorsActions.addError({
+              errorType: "drinks",
+              errorMessage: `Something went wrong! Error: ${error}`,
+            })
+          );
+        }
       };
       fetchAllDrinksWithAllLetters();
     }
